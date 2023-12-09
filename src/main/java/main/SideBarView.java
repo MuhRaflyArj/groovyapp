@@ -54,9 +54,9 @@ public class SideBarView {
         sideBar.getChildren().add(sideBarComponent);
 
         sbHome.setOnAction(e -> handleSbHome(sbHome));
-        sbAddFile.setOnAction(e -> handleSbAddFile(sbAddFile));
+        sbAddFile.setOnAction(e -> handleSbAddFile(root, sbAddFile));
         sbCreatePlaylist.setOnAction(e -> handleSbCreatePlaylist(sbCreatePlaylist));
-        sbAllSong.setOnAction(e -> handleSbAllSong(sbAllSong));
+        sbAllSong.setOnAction(e -> handleSbAllSong(root, sbAllSong));
 
         root.setLeft(sideBar);
     }
@@ -66,9 +66,9 @@ public class SideBarView {
         SideBarController.displayHome();
     }
 
-    private static void handleSbAddFile(Button sbAddfile) {
+    private static void handleSbAddFile(BorderPane root, Button sbAddfile) {
         setButtonState(sbAddfile);
-        SideBarController.displayAddFile();
+        SideBarController.displayAddFile(root);
     }
 
     private static void handleSbCreatePlaylist(Button sbCreatePlaylist) {
@@ -76,9 +76,9 @@ public class SideBarView {
         SideBarController.displayAddPlaylist();
     }
 
-    private static void handleSbAllSong(Button sbAllSong) {
+    private static void handleSbAllSong(BorderPane root, Button sbAllSong) {
         setButtonState(sbAllSong);
-        SideBarController.displayAllSong();
+        SideBarController.displayAllSong(root);
     }
 
     private static void handleSbPlaylist(Button sbPlaylist, Playlist playlist) {
