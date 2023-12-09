@@ -8,24 +8,24 @@ import java.util.List;
 
 public class SideBarController {
 
-    public static void displayHome() {
-
+    public static void displayHome(BorderPane root) {
+        HomeController.display(root);
     }
 
     public static void displayAddFile(BorderPane root) {
         AddFileController.display(root);
     }
 
-    public static void displayAddPlaylist() {
-
+    public static void displayAddPlaylist(BorderPane root) {
+        AddPlaylistController.display(root);
     }
 
     public static void displayAllSong(BorderPane root) {
         AllSongController.display(root);
     }
 
-    public static void displayPlaylist(Playlist playlist) {
-
+    public static void displayPlaylist(BorderPane root, Playlist playlist) {
+        PlaylistController.display(root, playlist);
     }
 
     public static void display(BorderPane root, List<Playlist> playlists) {
