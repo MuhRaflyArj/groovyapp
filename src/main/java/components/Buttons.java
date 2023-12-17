@@ -104,4 +104,12 @@ public class Buttons {
 
         return button;
     }
+
+    public static void ButtonUpdateIcon(Button button, String iconName, int width, int height) {
+        File iconFile = new File("icons/" + iconName);
+        ImageView icon = new ImageView(new Image(iconFile.toURI().toString()));
+        icon.setFitWidth(width);
+        icon.setFitHeight(height);
+        button.setGraphic(icon);
+    }
 }

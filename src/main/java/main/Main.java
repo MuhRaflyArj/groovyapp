@@ -14,6 +14,8 @@ import java.io.File;
 
 public class Main extends Application{
     Stage window;
+    BorderPane root = new BorderPane();
+    Scene scene;
 
     public static void main(String[] args) {
         new PlaylistDAO();
@@ -24,15 +26,13 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        BorderPane root = new BorderPane();
-
-        SideBarController.display(root, PlaylistDAO.getAllPlaylist());
         MusicPlayerController.display(root, SongDAO.recentlyPlayed(1).get(0));
+        SideBarController.display(root, PlaylistDAO.getAllPlaylist());
 
         BorderPane centerPane = new BorderPane();
         centerPane.getStyleClass().add("center-pane");
 
-        Scene scene = new Scene(root, 1920, 1080);
+        scene = new Scene(root, 1920, 1080);
 
         File mainStyles = new File("styles/mainStyles.css");
         scene.getStylesheets().add(mainStyles.toURI().toString());

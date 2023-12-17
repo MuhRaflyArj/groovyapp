@@ -7,28 +7,30 @@ import object.Playlist;
 import java.util.List;
 
 public class SideBarController {
+    public static BorderPane root;
 
-    public static void displayHome(BorderPane root) {
-        HomeController.display(root);
+    public static void displayHome() {
+        HomeController.display(SideBarController.root);
     }
 
-    public static void displayAddFile(BorderPane root) {
-        AddFileController.display(root);
+    public static void displayAddFile() {
+        AddFileController.display(SideBarController.root);
     }
 
-    public static void displayAddPlaylist(BorderPane root) {
-        AddPlaylistController.display(root);
+    public static void displayAddPlaylist() {
+        AddPlaylistController.display(SideBarController.root);
     }
 
-    public static void displayAllSong(BorderPane root) {
-        AllSongController.display(root);
+    public static void displayAllSong() {
+        AllSongController.display(SideBarController.root);
     }
 
-    public static void displayPlaylist(BorderPane root, Playlist playlist) {
-        PlaylistController.display(root, playlist);
+    public static void displayPlaylist(Playlist playlist) {
+        PlaylistController.display(SideBarController.root, playlist);
     }
 
     public static void display(BorderPane root, List<Playlist> playlists) {
-        SideBarView.display(root, playlists);
+        SideBarController.root = root;
+        SideBarView.display(SideBarController.root, playlists);
     }
 }

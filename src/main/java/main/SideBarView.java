@@ -14,22 +14,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SideBarView {
-    static ArrayList<Button> buttonList = new ArrayList<>();
+    private static BorderPane root;
+    private static Button sbHome = Buttons.ButtonWithIconText("tabler-icon-home-inactive.png", 32, 32, "HOME", 216);
+    private static Button sbAddFile = Buttons.ButtonWithIconText("tabler-icon-file-music-inactive.png", 32, 32, "ADD FILE", 216);
+    private static Button sbAddPlaylist = Buttons.ButtonWithIconText("tabler-icon-playlist-add-inactive.png", 32, 32, "CREATE PLAYLIST", 216);
+    private static Button sbAllSong = Buttons.ButtonWithIconText("tabler-icon-music-inactive.png", 32, 32, "ALL SONG", 216);
+    private static ArrayList<Button> buttonList = new ArrayList<>();
     public static void display(BorderPane root, List<Playlist> playlists) {
+        SideBarView.root = root;
         VBox sideBar = new VBox();
         sideBar.getStyleClass().add("side-bar");
         VBox sideBarComponent = new VBox(5);
 
         Text textMenu = new Text("MENU");
         textMenu.getStyleClass().add("title");
-        Button sbHome = Buttons.ButtonWithIconText("tabler-icon-home-inactive.png", 32, 32, "HOME", 216);
-        Button sbAddFile = Buttons.ButtonWithIconText("tabler-icon-file-music-inactive.png", 32, 32, "ADD FILE", 216);
-        Button sbAddPlaylist = Buttons.ButtonWithIconText("tabler-icon-playlist-add-inactive.png", 32, 32, "CREATE PLAYLIST", 216);
-
         Text space = new Text("");
         Text textLibrary = new Text("LIBRARY");
         textLibrary.getStyleClass().add("title");
-        Button sbAllSong = Buttons.ButtonWithIconText("tabler-icon-music-inactive.png", 32, 32, "ALL SONG", 216);
 
         sideBarComponent.getChildren().addAll(textMenu, sbHome, sbAddFile, sbAddPlaylist, space, textLibrary, sbAllSong);
         buttonList.add(sbHome);
@@ -39,7 +40,7 @@ public class SideBarView {
 
         for(Playlist playlist : playlists) {
             Button sbPlaylist = Buttons.ButtonWithIconText("tabler-icon-playlist-inactive.png", 32, 32, playlist.getName(), 216);
-            sbPlaylist.setOnAction(e -> handleSbPlaylist(root, sbPlaylist, playlist));
+            sbPlaylist.setOnAction(e -> handleSbPlaylist(sbPlaylist, playlist));
             sideBarComponent.getChildren().add(sbPlaylist);
             buttonList.add(sbPlaylist);
         }
@@ -53,37 +54,37 @@ public class SideBarView {
         sideBar.minWidth(288);
         sideBar.getChildren().add(sideBarComponent);
 
-        sbHome.setOnAction(e -> handleSbHome(root, sbHome));
-        sbAddFile.setOnAction(e -> handleSbAddFile(root, sbAddFile));
-        sbAddPlaylist.setOnAction(e -> handleSbAddPlaylist(root, sbAddPlaylist));
-        sbAllSong.setOnAction(e -> handleSbAllSong(root, sbAllSong));
+        sbHome.setOnAction(e -> handleSbHome());
+        sbAddFile.setOnAction(e -> handleSbAddFile());
+        sbAddPlaylist.setOnAction(e -> handleSbAddPlaylist());
+        sbAllSong.setOnAction(e -> handleSbAllSong());
 
-        root.setLeft(sideBar);
+        SideBarView.root.setLeft(sideBar);
     }
 
-    private static void handleSbHome(BorderPane root, Button sbHome) {
+    private static void handleSbHome() {
         setButtonState(sbHome);
-        SideBarController.displayHome(root);
+        SideBarController.displayHome();
     }
 
-    private static void handleSbAddFile(BorderPane root, Button sbAddfile) {
-        setButtonState(sbAddfile);
-        SideBarController.displayAddFile(root);
+    private static void handleSbAddFile() {
+        setButtonState(sbAddFile);
+        SideBarController.displayAddFile();
     }
 
-    private static void handleSbAddPlaylist(BorderPane root, Button sbCreatePlaylist) {
-        setButtonState(sbCreatePlaylist);
-        SideBarController.displayAddPlaylist(root);
+    private static void handleSbAddPlaylist() {
+        setButtonState(sbAddPlaylist);
+        SideBarController.displayAddPlaylist();
     }
 
-    private static void handleSbAllSong(BorderPane root, Button sbAllSong) {
+    private static void handleSbAllSong() {
         setButtonState(sbAllSong);
-        SideBarController.displayAllSong(root);
+        SideBarController.displayAllSong();
     }
 
-    private static void handleSbPlaylist(BorderPane root, Button sbPlaylist, Playlist playlist) {
+    private static void handleSbPlaylist(Button sbPlaylist, Playlist playlist) {
         setButtonState(sbPlaylist);
-        SideBarController.displayPlaylist(root, playlist);
+        SideBarController.displayPlaylist(playlist);
     }
 
     private static void setButtonState(Button pressedButton) {
