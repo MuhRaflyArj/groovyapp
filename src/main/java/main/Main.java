@@ -32,7 +32,7 @@ public class Main extends Application{
         BorderPane centerPane = new BorderPane();
         centerPane.getStyleClass().add("center-pane");
 
-        Scene scene = new Scene(root, 1920, 1080);
+        Scene scene = new Scene(root, 1500, 720);
 
         File mainStyles = new File("styles/mainStyles.css");
         scene.getStylesheets().add(mainStyles.toURI().toString());
