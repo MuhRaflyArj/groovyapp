@@ -1,5 +1,6 @@
 package main;
 
+import dao.PlaylistDAO;
 import dao.SongDAO;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
@@ -7,6 +8,7 @@ import javafx.scene.media.MediaPlayer;
 import object.Playlist;
 import object.Song;
 
+import java.time.Duration;
 import java.util.Currency;
 import java.util.Random;
 
@@ -25,6 +27,7 @@ public class MusicPlayerController {
     public static void display(BorderPane root, Song playedSong) {
         MusicPlayerView.setRoot(root);
         MusicPlayerView.display(playedSong);
+        MusicPlayerController.play(PlaylistDAO.getPlaylistById("P001"), SongDAO.getSongById("S001"));
     }
 
     public static void setIsShuffled(boolean shuffleStatus) {
@@ -77,8 +80,15 @@ public class MusicPlayerController {
         }
         MusicPlayerController.mediaPlayer = new MediaPlayer(media);
         MusicPlayerController.mediaPlayer.play();
-        MusicPlayerView.MusicInfoDisplay(currentSong);
+        MusicPlayerView.setVolumeSlider(mediaPlayer.getVolume());
+        MusicPlayerView.display(currentSong);
         MusicPlayerView.togglePlayIcon(true);
+
+        MusicPlayerController.mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+            MusicPlayerView.setSongSeeker(newValue.toSeconds());
+        });
+
+
     }
 
     public static void next() {
@@ -127,11 +137,16 @@ public class MusicPlayerController {
                 play(MusicPlayerController.currentPlaylist, SongDAO.getSongById(nextSong));
             }
         }
+
+
+    }
+    public static void seekSong(Number newValue) {
+        MusicPlayerController.mediaPlayer.seek(javafx.util.Duration.seconds(newValue.doubleValue()));
     }
 
-
-
-
+    public static void setVolume(double level) {
+        mediaPlayer.setVolume(level);
+    }
 
 
 }

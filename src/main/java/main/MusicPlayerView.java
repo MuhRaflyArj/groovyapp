@@ -4,6 +4,7 @@ import components.Buttons;
 import components.Images;
 import dao.PlaylistDAO;
 import dao.SongDAO;
+import javafx.beans.InvalidationListener;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
@@ -11,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import object.Song;
 
 import java.io.File;
@@ -28,7 +30,10 @@ public class MusicPlayerView {
     private static Button next = Buttons.ButtonWithIcon("tabler-icon-player-track-next-inactive.png", 32, 32);
     private static Button repeat = Buttons.ButtonWithIcon("tabler-icon-reload-inactive.png", 32, 32);
     private static Button mute = Buttons.ButtonWithIcon("tabler-icon-volume-maxvolume.png", 32, 32);
-
+    private static Slider songSeeker = new Slider();
+    private static Text start = new Text("00.00");
+    private static Text end = new Text("");
+    private static Slider volumeSlider = new Slider();
     public static void setRoot(BorderPane newRoot) {
         MusicPlayerView.root = newRoot;
     }
@@ -36,17 +41,17 @@ public class MusicPlayerView {
     public static BorderPane getRoot() {
         return MusicPlayerView.root;
     }
-    public static void MusicInfoDisplay(Song musicPlayed) {
+    public static void MusicInfoDisplay(Song playedSong) {
         HBox musicInfoDisplay = new HBox(25);
         musicInfoDisplay.setMinWidth(360);
         musicInfoDisplay.getStyleClass().add("music-display");
 
-        StackPane musicImage = Images.Small(musicPlayed.getImagePath());
+        StackPane musicImage = Images.Small(playedSong.getImagePath());
 
-        Text title = new Text(musicPlayed.getTitle());
+        Text title = new Text(playedSong.getTitle());
         title.getStyleClass().add("title");
 
-        Text artist = new Text(musicPlayed.getArtist());
+        Text artist = new Text(playedSong.getArtist());
         artist.getStyleClass().add("artist");
 
         VBox musicName = new VBox(0);
@@ -60,7 +65,7 @@ public class MusicPlayerView {
         musicPlayer.setLeft(musicInfoDisplay);
     }
 
-    public static void MusicMenu() {
+    public static void MusicMenu(Song playedSong) {
         VBox musicMenu = new VBox(25);
 
         HBox controlButtons = new HBox(40);
@@ -73,15 +78,26 @@ public class MusicPlayerView {
         next.setOnAction(e -> next());
         repeat.setOnAction(e -> toggleRepeat());
 
-        Slider songSeeker = new Slider();
+        songSeeker.setMin(0);
+        songSeeker.setMax(playedSong.getLength());
         songSeeker.getStyleClass().add("seek-bar");
         songSeeker.setMinWidth(750);
 
+        songSeeker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (!songSeeker.isValueChanging() && Math.abs(newValue.doubleValue() - oldValue.doubleValue()) > 3) {
+                MusicPlayerController.seekSong(newValue);
+            } else if (songSeeker.getValue() > songSeeker.getMax()-1) {
+                MusicPlayerController.next();
+            }
+        });
+
         HBox seek = new HBox(10);
 
-        Text start = new Text("0.00");
+        start.setText("00.00");
         start.getStyleClass().add("duration");
-        Text end = new Text("3.04");
+
+        String endDuration = formatDuration(Duration.seconds(playedSong.getLength()));
+        end.setText(endDuration);
         end.getStyleClass().add("duration");
 
         seek.getChildren().addAll(start, songSeeker ,end);
@@ -98,8 +114,13 @@ public class MusicPlayerView {
         HBox musicVolume = new HBox(20);
 
         mute.setOnAction(e -> toggleMute());
-        Slider volumeSlider = new Slider();
+        volumeSlider.setMin(0);
+        volumeSlider.setMax(1.0);
         volumeSlider.getStyleClass().add("seek-bar");
+
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            setVolumeSlider(newValue.doubleValue());
+        });
 
         musicVolume.getChildren().addAll(mute, volumeSlider);
         musicVolume.getStyleClass().add("music-volume");
@@ -109,11 +130,11 @@ public class MusicPlayerView {
     }
 
     public static void display(Song playedSong) {
-        MusicPlayerController.play(PlaylistDAO.getPlaylistById("P001"), SongDAO.getSongById("S001"));
+
         musicPlayer.setMaxHeight(162);
         musicPlayer.setMinHeight(162);
 
-        MusicMenu();
+        MusicMenu(playedSong);
         MusicInfoDisplay(playedSong);
         MusicVolume();
 
@@ -196,4 +217,21 @@ public class MusicPlayerView {
     private static void prev() {
         MusicPlayerController.prev();
     }
+
+    private static String formatDuration(Duration duration) {
+        int minutes = (int) duration.toMinutes();
+        int seconds = (int) (duration.toSeconds() % 60);
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
+    public static void setSongSeeker(double second) {
+        songSeeker.setValue(second);
+        start.setText(formatDuration(Duration.seconds(second)));
+    }
+
+    public static void setVolumeSlider(double level) {
+        MusicPlayerController.setVolume(level);
+        volumeSlider.setValue(level);
+    }
+
 }
