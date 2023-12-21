@@ -1,16 +1,16 @@
 .button-small {
     -fx-min-width: 192px;
-    -fx-padding: 19px 16px;
+    -fx-padding: 12px 10px;
     -fx-alignment: center;
     -fx-background-radius: 10;
-    -fx-background-color: #2E2E2E;
+    -fx-background-color: #FFFFFF;
 
     -fx-font-family: "Lexend";
     -fx-font-size: 14px;
     -fx-font-style: normal;
     -fx-font-weight: 600;
     -fx-line-height: normal;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #2E2E2E;
 }
 
 .button-medium {
@@ -81,4 +81,19 @@
     -fx-line-height: normal;
     -fx-text-fill: #FFFFFF;
     -fx-background-color: #474747;
+}
+
+.button-browse {
+    -fx-min-width: 192px;
+    -fx-padding: 4px 5px;
+    -fx-alignment: center;
+    -fx-background-radius: 10;
+    -fx-background-color: #474747;
+
+    -fx-font-family: "Lexend";
+    -fx-font-size: 14px;
+    -fx-font-style: normal;
+    -fx-font-weight: 600;
+    -fx-line-height: normal;
+    -fx-text-fill: #FFFFFF;
 }

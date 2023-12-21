@@ -1,0 +1,49 @@
+.add-file {
+    -fx-background-color: #1B1A1A;
+}
+
+.title {
+    -fx-font-family: "Lexend";
+    -fx-font-size: 32px;
+    -fx-font-style: normal;
+    -fx-font-weight: 700;
+    -fx-line-height: normal;
+    -fx-fill: #FFFFFF;
+
+}
+
+.normal {
+    -fx-font-family: "Lexend";
+    -fx-font-size: 20px;
+    -fx-font-style: normal;
+    -fx-font-weight: 700;
+    -fx-line-height: normal;
+    -fx-fill: #FFFFFF;
+}
+
+.drag-and-drop-region {
+    -fx-border-color: #474747;
+    -fx-border-width: 100;
+    -fx-background-color: #474747;
+    -fx-opacity: 0.7;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.drag-and-drop-container{
+    -fx-alignment: center;
+}
+
+.drag-text-container{
+    -fx-alignment: center;
+    -fx-pref-width: 50px; /* Set your preferred width */
+    -fx-pref-height: 50px; /* Set your preferred height */
+}
+
+.dropped-song{
+    -fx-alignment: left;
+}
+
+.dropped-song > Label {
+    -fx-text-fill: white; /* Tambahkan ini untuk mengubah warna teks menjadi putih */
+}

@@ -10,7 +10,7 @@ import java.io.File;
 
 public class Buttons {
 
-    public static Button Short(String caption) {
+    public static Button Small(String caption) {
         Button button = new Button(caption);
         File buttonStyles = new File("styles/buttonStyles.css");
         button.getStylesheets().add(buttonStyles.toURI().toString());
@@ -112,4 +112,14 @@ public class Buttons {
         icon.setFitHeight(height);
         button.setGraphic(icon);
     }
+    public static Button Browse(String caption) {
+        Button button = new Button(caption);
+        File buttonStyles = new File("styles/buttonStyles.css");
+        button.getStylesheets().add(buttonStyles.toURI().toString());
+        button.getStyleClass().add("button-browse");
+        return button;
+    }
+
 }
+
+

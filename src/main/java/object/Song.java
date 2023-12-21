@@ -114,4 +114,20 @@ public class Song {
     public void setCountPlayed(int countPlayed) {
         this.countPlayed = countPlayed;
     }
+
+    public void display(){
+        System.out.println("SongID       : " + songID);
+        System.out.println("Title        : " + title);
+        System.out.println("Artist       : " + artist);
+        System.out.println("Album Name   : " + albumName);
+        System.out.println("Year         : " + year);
+        System.out.println("Duration     : " + length);
+        System.out.println("Track No     : " + trackNo);
+        System.out.println("Genre        : " + genre);
+        System.out.println("File Path    : " + filePath);
+        System.out.println("Image Path   : " + imagePath);
+        System.out.println("Last Played  : " + lastPlayed);
+        System.out.println("Count Played : " + countPlayed);
+        System.out.println();
+    }
 }
