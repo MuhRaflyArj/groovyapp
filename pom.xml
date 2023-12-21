@@ -40,6 +40,11 @@
             <artifactId>javafx-graphics</artifactId>
             <version>17.0.6</version>
         </dependency>
+        <dependency>
+            <groupId>com.mpatric.mp3agic</groupId>
+            <artifactId>mp3agic</artifactId>
+            <version>0.9.3</version> <!-- Ganti versi dengan versi terbaru -->
+        </dependency>
     </dependencies>
 
     <properties>

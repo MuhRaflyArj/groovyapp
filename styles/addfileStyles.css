@@ -36,4 +36,14 @@
 
 .drag-text-container{
     -fx-alignment: center;
+    -fx-pref-width: 50px; /* Set your preferred width */
+    -fx-pref-height: 50px; /* Set your preferred height */
+}
+
+.dropped-song{
+    -fx-alignment: left;
+}
+
+.dropped-song > Label {
+    -fx-text-fill: white; /* Tambahkan ini untuk mengubah warna teks menjadi putih */
 }
