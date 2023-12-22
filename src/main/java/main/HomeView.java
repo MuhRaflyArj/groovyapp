@@ -36,12 +36,9 @@ public class HomeView {
         Text textTitle = new Text("Listen Now");
         textTitle.getStyleClass().add("title-32");
 
-        HBox searchBar = new HBox();
-        searchBar.setAlignment(Pos.BASELINE_LEFT);
-        Text searchTemp = new Text("Search bar goes here");
-        searchBar.getChildren().add(searchTemp);
+        HBox searchBar = SearchBars.SearchBar("...");
+        searchBar.setAlignment(Pos.CENTER_LEFT);
 
-        searchTemp.getStyleClass().add("title-18");
         sectionTitle.getChildren().addAll(textTitle,searchBar);
 
         // Frequently played label
@@ -264,6 +261,7 @@ public class HomeView {
 
     private static void handleSwitchPage(String page) {
         HomeController.switchPage(page);
+
     }
 
 }
