@@ -61,6 +61,7 @@
 .button-with-icon {
     -fx-alignment: center;
     -fx-background-color: transparent;
+    -fx-cursor: hand;
 }
 
 .button-with-icon-text {
