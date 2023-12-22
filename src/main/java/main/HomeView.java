@@ -55,9 +55,11 @@ public class HomeView {
         List<Song> songs = SongDAO.getMostPlayedSongs(6);
 
         for (Song song : songs) {
-            StackPane image = Images.Medium(song.getImagePath());
-            HBox.setHgrow(image, Priority.ALWAYS);
-            sectionFreq.getChildren().add(image);
+            Button imageButton = Buttons.ButtonWithImage(song.getImagePath(), 200, 200);
+            imageButton.setOnAction(actionEvent -> handlePlay(song, imageButton));
+
+            HBox.setHgrow(imageButton, Priority.ALWAYS);
+            sectionFreq.getChildren().add(imageButton);
         }
 
 
@@ -88,6 +90,8 @@ public class HomeView {
             songNumber.getStyleClass().addAll("song", "num");
 
             Button listPlay = Buttons.ButtonWithIcon("tabler-icon-player-play-inactive.png", 16, 16);
+            listPlay.setOnAction(e -> handlePlay(song, listPlay));
+
             StackPane songThumb = Images.ExtraSmall(song.getImagePath());
             // Song detail is a vbox
             VBox songDetail = new VBox(-1);
@@ -148,6 +152,8 @@ public class HomeView {
         buttonAllSong.getStylesheets().add(buttonStyles.toURI().toString());
         buttonAllSong.getStyleClass().add("button-with-icon");
 
+        buttonAllSong.setOnAction(actionEvent -> handleSwitchPage("AllSong"));
+
         sectionMost.getChildren().add(buttonAllSong);
 
         // Section Recently Played
@@ -177,6 +183,8 @@ public class HomeView {
             songNumber.getStyleClass().addAll("song", "num");
 
             Button listPlay = Buttons.ButtonWithIcon("tabler-icon-player-play-inactive.png", 16, 16);
+            listPlay.setOnAction(e -> handlePlay(song, listPlay));
+
             StackPane songThumb = Images.ExtraSmall(song.getImagePath());
             // Song detail is a vbox
             VBox songDetail = new VBox(-1);
@@ -229,6 +237,8 @@ public class HomeView {
         btnCreatePlaylist.getStylesheets().add(buttonStyles.toURI().toString());
         btnCreatePlaylist.getStyleClass().add("button-with-icon");
 
+        btnCreatePlaylist.setOnAction(actionEvent -> handleSwitchPage("CreatePlaylist"));
+
         HBox.setHgrow(recentLeft, Priority.ALWAYS);
         sectionRecent.getChildren().add(recentLeft);
         sectionRecent.getChildren().add(btnCreatePlaylist);
@@ -248,5 +258,12 @@ public class HomeView {
         root.setCenter(home);
     }
 
+    private static void handlePlay(Song song, Button clicked) {
+        HomeController.playSong(song);
+    }
+
+    private static void handleSwitchPage(String page) {
+        HomeController.switchPage(page);
+    }
 
 }
