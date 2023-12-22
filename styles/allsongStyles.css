@@ -1,0 +1,13 @@
+.all-song {
+    -fx-background-color: #1B1A1A;
+}
+
+.title {
+    -fx-font-family: "Lexend";
+    -fx-font-size: 32px;
+    -fx-font-style: normal;
+    -fx-font-weight: 700;
+    -fx-line-height: normal;
+    -fx-fill: #FFFFFF;
+
+}

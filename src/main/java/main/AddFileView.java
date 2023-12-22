@@ -6,7 +6,6 @@ import dao.SongDAO;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -95,11 +94,6 @@ public class AddFileView {
             event.consume();
         });
 
-//        dragAndDropRegion.setOnDragExited(event -> {
-//            dragTextContainer.setVisible(true);
-//            event.consume();
-//        });
-
         dragAndDropRegion.setOnDragOver(event -> {
             if (event.getGestureSource() != dragAndDropRegion && event.getDragboard().hasFiles()) {
                 event.acceptTransferModes(TransferMode.COPY);
@@ -130,11 +124,17 @@ public class AddFileView {
 //        for (int i = 7; i <= 10; i++) {
 //            SongDAO.deleteSong(String.format("S%03d", i));
 //        }
-        if (droppedFiles.isEmpty() && filePath.getText().isEmpty()) {
-            return;
-        }
-
-        if (!droppedFiles.isEmpty()) {
+        if (!droppedFiles.isEmpty() && !filePath.getText().isEmpty()) {
+            // Import file dari drag and drop
+            for (File file : droppedFiles) {
+                System.out.println("Handling dropped file: " + file.getAbsolutePath());
+                AddFileController.importFile(file);
+            }
+            // Import Folder
+            String selectedFilePath = filePath.getText();
+            System.out.println("Handling selected folder: " + selectedFilePath);
+            AddFileController.importFolder(selectedFilePath);
+        } else if (!droppedFiles.isEmpty()) {
             for (File file : droppedFiles) {
                 System.out.println("Handling dropped file: " + file.getAbsolutePath());
                 AddFileController.importFile(file);
@@ -143,6 +143,8 @@ public class AddFileView {
             String selectedFilePath = filePath.getText();
             System.out.println("Handling selected folder: " + selectedFilePath);
             AddFileController.importFolder(selectedFilePath);
+        }else{
+            return;
         }
 
         List<Song> songs = SongDAO.getAllSong();
@@ -157,12 +159,22 @@ public class AddFileView {
     }
 
     private static void handleDroppedFiles(List<File> files, VBox droppedSong) {
-        // Process the dropped files here
         for (File file : files) {
-            // Perform actions with the dropped file(s)
             System.out.println("Dropped file: " + file.getAbsolutePath());
+
+            HBox fileEntry = new HBox(5);
+
+            File fileIcon = new File("icons/tabler-icon-file-music-inactive.png");
+            ImageView iconView = new ImageView(new Image(fileIcon.toURI().toString()));
+            iconView.setFitWidth(15);
+            iconView.setFitHeight(15);
+
             Label fileNameLabel = new Label(file.getName());
-            droppedSong.getChildren().add(fileNameLabel);
+            fileNameLabel.getStyleClass().add("hbox-label");
+            fileEntry.getChildren().addAll(iconView, fileNameLabel);
+
+            droppedSong.getChildren().add(fileEntry);
+
             droppedFiles.add(file);
         }
     }

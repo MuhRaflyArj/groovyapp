@@ -27,7 +27,7 @@ public class MusicPlayerController {
     public static void display(BorderPane root, Song playedSong) {
         MusicPlayerView.setRoot(root);
         MusicPlayerView.display(playedSong);
-        MusicPlayerController.play(PlaylistDAO.getPlaylistById("P001"), SongDAO.getSongById("S001"));
+//        MusicPlayerController.play(PlaylistDAO.getPlaylistById("P004"), SongDAO.getSongById("S010"));
     }
 
     public static void setIsShuffled(boolean shuffleStatus) {

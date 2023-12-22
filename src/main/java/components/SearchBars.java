@@ -6,20 +6,23 @@ import javafx.scene.layout.HBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
+
 
 public class SearchBars {
     public static HBox SearchBar(String placeholder) {
         TextField textField = new TextField();
         textField.setPromptText(placeholder);
-        textField.getStylesheets().add(SearchBars.class.getResource("searchbarStyles.css").toExternalForm());
         textField.getStyleClass().add("text-field");
 
-        ImageView searchIcon = new ImageView(new Image(SearchBars.class.getResourceAsStream("icons/tabler-icon-search-inactive.png")));
+        File searchIconFile = new File("icons/tabler-icon-search-inactive.png");
+        ImageView searchIcon = new ImageView(searchIconFile.toURI().toString());
         searchIcon.setFitHeight(16);
         searchIcon.setFitWidth(16);
 
-        HBox searchBar = new HBox(15, searchIcon, textField);
-        searchBar.getStylesheets().add(SearchBars.class.getResource("searchbarStyles.css").toExternalForm());
+        HBox searchBar = new HBox(1, searchIcon, textField);
+        File searchBarStyles = new File ("styles/searchbarStyles.css");
+        searchBar.getStylesheets().add(searchBarStyles.toURI().toString());
         searchBar.getStyleClass().add("search-bar");
         searchBar.setAlignment(Pos.CENTER_LEFT);
 

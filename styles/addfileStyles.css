@@ -44,6 +44,10 @@
     -fx-alignment: left;
 }
 
-.dropped-song > Label {
-    -fx-text-fill: white; /* Tambahkan ini untuk mengubah warna teks menjadi putih */
+.hbox-label {
+    -fx-text-fill: white; /* Set text color to white */
+}
+
+.dropped-song-container{
+    -fx-alignment: left;
 }
