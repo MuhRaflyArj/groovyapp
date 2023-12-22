@@ -8,3 +8,10 @@
     -fx-max-width: 100;
     -fx-max-height: 100;
 }
+
+.medium {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-max-width: 200px;
+    -fx-max-height: 200px;
+}

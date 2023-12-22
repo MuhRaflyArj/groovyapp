@@ -57,6 +57,21 @@ public class Buttons {
         return button;
     }
 
+    public static Button ButtonWithImage(String imageName, int width, int height) {
+        File imageFile = new File("images/" + imageName);
+        ImageView icon = new ImageView(new Image(imageFile.toURI().toString()));
+        icon.setFitWidth(width);
+        icon.setFitHeight(height);
+
+        Button button = new Button("", icon);
+        button.setPrefSize(width, height);
+        File buttonStyles = new File("styles/buttonStyles.css");
+        button.getStylesheets().add(buttonStyles.toURI().toString());
+        button.getStyleClass().add("button-with-icon");
+
+        return button;
+    }
+
     public static Button ButtonWithIconText(String iconName, int width, int height, String caption) {
         HBox buttonBox = new HBox(20);
 

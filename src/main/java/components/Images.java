@@ -45,7 +45,8 @@ public class Images {
         Image imageSource = new Image(image.toURI().toString());
 
         ImageView imageView = new ImageView(imageSource);
-        imageView.getStyleClass().add("medium");
+        imageView.setFitWidth(200);
+        imageView.setFitHeight(200);
 
         StackPane imageBox = new StackPane();
         imageBox.getChildren().add(imageView);
@@ -79,7 +80,8 @@ public class Images {
         Image imageSource = new Image(image.toURI().toString());
 
         ImageView imageView = new ImageView(imageSource);
-        imageView.getStyleClass().add("extra-small");
+        imageView.setFitWidth(30);
+        imageView.setFitHeight(30);
 
         StackPane imageBox = new StackPane();
         imageBox.getChildren().add(imageView);
