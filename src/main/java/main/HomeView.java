@@ -1,5 +1,6 @@
 package main;
 
+import components.AppBars;
 import components.Buttons;
 import components.Images;
 import components.SearchBars;
@@ -31,15 +32,7 @@ public class HomeView {
         homeBox.setPadding(new Insets(50,50,0,50));
 
         // Search bar/title
-        HBox sectionTitle = new HBox(25);
-
-        Text textTitle = new Text("Listen Now");
-        textTitle.getStyleClass().add("title-32");
-
-        HBox searchBar = SearchBars.SearchBar("...");
-        searchBar.setAlignment(Pos.CENTER_LEFT);
-
-        sectionTitle.getChildren().addAll(textTitle,searchBar);
+        HBox sectionTitle = AppBars.Home();
 
         // Frequently played label
         Text labelFreq = new Text("FREQUENTLY PLAYED");
@@ -249,6 +242,8 @@ public class HomeView {
 
         homeBox.getStyleClass().add("center-pane");
         ScrollPane home = new ScrollPane(homeBox);
+        home.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        home.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         home.getStyleClass().add("center-pane");
         home.setFitToWidth(true);
         home.setFitToHeight(true);

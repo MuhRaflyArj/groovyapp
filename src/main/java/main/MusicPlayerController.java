@@ -9,11 +9,7 @@ import object.Playlist;
 import object.Song;
 
 import java.time.Duration;
-import java.util.Currency;
-import java.util.Random;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class MusicPlayerController {
     private static boolean isShuffled = false;
@@ -88,7 +84,10 @@ public class MusicPlayerController {
             MusicPlayerView.setSongSeeker(newValue.toSeconds());
         });
 
+        currentSong.setCountPlayed(currentSong.getCountPlayed()+1);
+        currentSong.setLastPlayed(new Date());
 
+        SongDAO.updateSong(currentSong.getSongID(), currentSong);
     }
 
     public static void next() {

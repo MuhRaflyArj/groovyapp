@@ -1,14 +1,20 @@
 .search-bar {
     -fx-background-color: #1B1A1A; /* Set background color */
-    -fx-padding: 5px; /* Add padding */
-    -fx-border-width: 1px; /* Add border width */
+    -fx-border-width: 2px; /* Add border width */
     -fx-border-color: #bfbfbf; /* Set border color */
     -fx-border-radius: 75;
     -fx-pref-width: 300px;
+    -fx-min-height : 40px;
+    -fx-padding: 0 0 0 15px;
 }
 
 /* Style for the TextField inside the SearchBar */
 .text-field {
     -fx-background-color: #1B1A1A ;
+    -fx-font-family: "Lexend";
+    -fx-font-size: 12px;
+    -fx-font-style: normal;
+    -fx-font-weight: 300;
+    -fx-line-height: normal;
     -fx-text-fill: #FFFFFF;
 }

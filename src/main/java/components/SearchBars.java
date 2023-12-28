@@ -1,5 +1,6 @@
 package components;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -20,7 +21,7 @@ public class SearchBars {
         searchIcon.setFitHeight(16);
         searchIcon.setFitWidth(16);
 
-        HBox searchBar = new HBox(1, searchIcon, textField);
+        HBox searchBar = new HBox(5, searchIcon, textField);
         File searchBarStyles = new File ("styles/searchbarStyles.css");
         searchBar.getStylesheets().add(searchBarStyles.toURI().toString());
         searchBar.getStyleClass().add("search-bar");

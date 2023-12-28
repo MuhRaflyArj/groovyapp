@@ -34,6 +34,7 @@ public class AddFileView {
     public static void display(BorderPane root) {
         VBox addFile = new VBox();
         addFile.getStyleClass().add("add-file");
+        addFile.setPadding(new Insets(25,50,0,40));
         VBox addFileComponent = new VBox(30);
 
         Text textTitle = new Text("Add Files");

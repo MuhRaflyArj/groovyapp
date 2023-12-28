@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.control.ScrollPane;
 
 import java.io.File;
 
@@ -33,6 +34,9 @@ public class AllSongView {
 
         allSong.getStylesheets().add(addFileStyles.toURI().toString());
         allSong.getChildren().add(allSongComponent);
+        ScrollPane scrollPaneSong = new ScrollPane(allSong);
+        scrollPaneSong.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPaneSong.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         root.setCenter(allSong);
 
     }

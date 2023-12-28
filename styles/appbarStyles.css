@@ -1,14 +1,8 @@
-.side-bar {
-    -fx-background-color: #2E2E2E;
-
-}
-
-.title {
+.app-bar-text {
     -fx-font-family: "Lexend";
-    -fx-font-size: 20px;
+    -fx-font-size: 32px;
     -fx-font-style: normal;
     -fx-font-weight: 700;
     -fx-line-height: normal;
     -fx-fill: #FFFFFF;
 }
-
