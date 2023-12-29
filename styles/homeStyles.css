@@ -91,7 +91,7 @@
 }
 
 .text-delete {
-    -fx-font: "Lexend";
+    -fx-font-family: "Lexend";
     -fx-font-size: 16px;
     -fx-font-style: normal;
     -fx-font-weight: 500;

@@ -26,6 +26,7 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        HomeController.display(root);
         MusicPlayerController.display(root, SongDAO.recentlyPlayed(1).get(0));
         SideBarController.display(root, PlaylistDAO.getAllPlaylist());
 
