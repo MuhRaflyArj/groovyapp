@@ -37,4 +37,9 @@ public class HomeController {
         }
     }
 
+    public static void deleteSong(Song song) {
+        System.out.println(song.getSongID()+" deleted!!");
+    }
+
+
 }

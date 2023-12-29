@@ -8,9 +8,9 @@ import dao.SongDAO;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.geometry.Side;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -24,7 +24,8 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 public class HomeView {
-
+    private static ContextMenu songOptions = new ContextMenu();
+    private static MenuItem deleteSong;
     public static void display(BorderPane root) {
         VBox homeBox = new VBox(30);
         File titleStyle = new File("styles/homeStyles.css");
@@ -51,6 +52,14 @@ public class HomeView {
             HBox.setHgrow(imageButton, Priority.ALWAYS);
             sectionFreq.getChildren().add(imageButton);
         }
+
+        // Song Options Context Menu
+        Text textDelete = new Text("Delete");
+        textDelete.getStyleClass().add("text-delete");
+        deleteSong = new MenuItem("", textDelete);
+        deleteSong.getStyleClass().add("delete-option");
+        songOptions.getStyleClass().add("context-menu");
+        songOptions.getItems().add(deleteSong);
 
 
         // Most played
@@ -98,6 +107,12 @@ public class HomeView {
             // Add iteration adding child for the main row
             Button songOption = Buttons.ButtonWithIcon("tabler-icon-dots.png", 16,16);
             songRow.getChildren().addAll(sideLeft, songOption);
+            songOption.setOnAction(e -> {
+                handleContextMenu(song, songOption);
+            });
+            songRow.onContextMenuRequestedProperty().set(e -> {
+                handleContextMenu(song, songOption);
+            });
             // Add row to the main VBox
             songListMost.getChildren().add(songRow);
             iter++;
@@ -191,6 +206,12 @@ public class HomeView {
             // Add iteration adding child for the main row
             Button songOption = Buttons.ButtonWithIcon("tabler-icon-dots.png", 16,16);
             songRow.getChildren().addAll(sideLeft, songOption);
+            songOption.setOnAction(e -> {
+                handleContextMenu(song, songOption);
+            });
+            songRow.onContextMenuRequestedProperty().set(e -> {
+                handleContextMenu(song, songOption);
+            });
             // Add row to the main VBox
             songListRecent.getChildren().add(songRow);
             iter++;
@@ -256,7 +277,14 @@ public class HomeView {
 
     private static void handleSwitchPage(String page) {
         HomeController.switchPage(page);
+    }
 
+    private static void handleContextMenu(Song song, Node target) {
+        deleteSong.setOnAction(e -> {
+            HomeController.deleteSong(song);
+            songOptions.hide();
+        });
+        songOptions.show(target, Side.TOP, -20, 5);
     }
 
 }
