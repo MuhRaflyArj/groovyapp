@@ -13,7 +13,7 @@ import java.io.File;
 
 
 public class Main extends Application{
-    Stage window;
+    public static Stage primaryStage;
     BorderPane root = new BorderPane();
     Scene scene;
 
@@ -37,6 +37,7 @@ public class Main extends Application{
         File mainStyles = new File("styles/mainStyles.css");
         scene.getStylesheets().add(mainStyles.toURI().toString());
         primaryStage.setScene(scene);
+        Main.primaryStage = primaryStage;
         primaryStage.show();
     }
 

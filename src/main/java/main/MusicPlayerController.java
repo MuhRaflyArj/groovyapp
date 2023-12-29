@@ -79,7 +79,7 @@ public class MusicPlayerController {
             audioFilePath = audioFilePath.replace("\\", "/");
             MusicPlayerController.media = new Media("file:///" + audioFilePath.replace(" ", "%20"));
         }
-        
+
         if (MusicPlayerController.mediaPlayer != null) {
             MusicPlayerController.mediaPlayer.stop();
         }

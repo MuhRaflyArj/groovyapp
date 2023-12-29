@@ -1,0 +1,33 @@
+.pop-up {
+    -fx-background-color: #2E2E2E;
+    -fx-pref-width: 800;
+    -fx-pref-height: 350;
+    -fx-background-radius: 25px;
+}
+
+.title {
+    -fx-font-family: "Lexend";
+    -fx-font-size: 48px;
+    -fx-font-style: normal;
+    -fx-font-weight: 600;
+    -fx-line-height: normal;
+    -fx-fill: #FFFFFF;
+}
+
+.subtitle {
+    -fx-font-family: "Lexend";
+    -fx-font-size: 24px;
+    -fx-font-style: normal;
+    -fx-font-weight: 400;
+    -fx-line-height: normal;
+    -fx-fill: #FFFFFF;
+}
+
+.title-error {
+    -fx-font-family: "Lexend";
+    -fx-font-size: 48px;
+    -fx-font-style: normal;
+    -fx-font-weight: 600;
+    -fx-line-height: normal;
+    -fx-fill: #FF2222;
+}
