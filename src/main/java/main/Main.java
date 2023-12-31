@@ -13,7 +13,7 @@ import java.io.File;
 
 
 public class Main extends Application{
-    Stage window;
+    public static Stage primaryStage;
     BorderPane root = new BorderPane();
     Scene scene;
 
@@ -26,6 +26,7 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        HomeController.display(root);
         MusicPlayerController.display(root, SongDAO.recentlyPlayed(1).get(0));
         SideBarController.display(root, PlaylistDAO.getAllPlaylist());
 
@@ -37,6 +38,7 @@ public class Main extends Application{
         File mainStyles = new File("styles/mainStyles.css");
         scene.getStylesheets().add(mainStyles.toURI().toString());
         primaryStage.setScene(scene);
+        Main.primaryStage = primaryStage;
         primaryStage.show();
     }
 

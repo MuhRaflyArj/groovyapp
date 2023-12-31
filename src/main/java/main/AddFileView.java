@@ -2,7 +2,6 @@ package main;
 
 import components.Buttons;
 import components.TextFields;
-import dao.SongDAO;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,20 +12,10 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
-
-import com.mpatric.mp3agic.*;
-import object.Song;
 
 public class AddFileView {
     static ArrayList<Button> buttonList = new ArrayList<>();
@@ -114,17 +103,15 @@ public class AddFileView {
         });
 
         sbBrowse.setOnAction(e -> handleSbBrowse(filePath));
-        sbImport.setOnAction(e -> handleSbImport(filePath, droppedSong, dragTextContainer));
+        sbImport.setOnAction(e -> handleSbImport(root, filePath, droppedSong, dragTextContainer));
     }
 
     private static void handleSbBrowse(TextField filePath) {
         AddFileController.browseFile(filePath);
     }
 
-    private static void handleSbImport(TextField filePath, VBox droppedSong, VBox dragTextContainer) {
-//        for (int i = 7; i <= 10; i++) {
-//            SongDAO.deleteSong(String.format("S%03d", i));
-//        }
+    private static void handleSbImport(BorderPane root, TextField filePath, VBox droppedSong, VBox dragTextContainer) {
+
         if (!droppedFiles.isEmpty() && !filePath.getText().isEmpty()) {
             // Import file dari drag and drop
             for (File file : droppedFiles) {
@@ -134,8 +121,10 @@ public class AddFileView {
             // Import Folder
             String selectedFilePath = filePath.getText();
             System.out.println("Handling selected folder: " + selectedFilePath);
+            new AddFilePopup("Song Added", "Check all song for more information");
             AddFileController.importFolder(selectedFilePath);
         } else if (!droppedFiles.isEmpty()) {
+            new AddFilePopup("Song Added", "Check all song for more information");
             for (File file : droppedFiles) {
                 System.out.println("Handling dropped file: " + file.getAbsolutePath());
                 AddFileController.importFile(file);
@@ -144,14 +133,8 @@ public class AddFileView {
             String selectedFilePath = filePath.getText();
             System.out.println("Handling selected folder: " + selectedFilePath);
             AddFileController.importFolder(selectedFilePath);
-        }else{
-            return;
-        }
-
-        List<Song> songs = SongDAO.getAllSong();
-        System.out.println("File yang ada di Database: \n");
-        for (Song song : songs){
-            System.out.println(song.getSongID());
+        }else if (droppedFiles.isEmpty()){
+            new AddFilePopupError("No Song Added", "please add song first to import");
         }
 
         filePath.setText("");

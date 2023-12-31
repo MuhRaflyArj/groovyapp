@@ -70,7 +70,16 @@ public class MusicPlayerController {
 
 
         String audioFilePath = currentSong.getFilePath();
-        MusicPlayerController.media = new Media("file://" + audioFilePath.replace(" ", "%20"));
+
+        String osName = System.getProperty("os.name").toLowerCase();
+
+        if (osName.contains("mac")) {
+            MusicPlayerController.media = new Media("file://" + audioFilePath.replace(" ", "%20"));
+        } else if (osName.contains("win")) {
+            audioFilePath = audioFilePath.replace("\\", "/");
+            MusicPlayerController.media = new Media("file:///" + audioFilePath.replace(" ", "%20"));
+        }
+
         if (MusicPlayerController.mediaPlayer != null) {
             MusicPlayerController.mediaPlayer.stop();
         }

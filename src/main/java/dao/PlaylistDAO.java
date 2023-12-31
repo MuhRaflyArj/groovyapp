@@ -16,7 +16,7 @@ public class PlaylistDAO {
 
     public PlaylistDAO() {
         mongoClient = new MongoClient(new MongoClientURI("mongodb+srv://raflyarj:groovy@groovycluster.ejkhj6t.mongodb.net/?retryWrites=true&w=majority"));
-        database = mongoClient.getDB("groovy");
+        database = mongoClient.getDB(System.getProperty("user.name"));
         collection = database.getCollection("playlist");
     }
 
