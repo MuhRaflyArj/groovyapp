@@ -15,6 +15,7 @@ import java.util.List;
 
 public class HomeController {
     private static final Playlist allSong = new Playlist();
+
     public static void display(BorderPane root) {
         HomeView.display(root);
     }
@@ -41,7 +42,7 @@ public class HomeController {
     }
 
     public static void deleteSong(Song song) {
-        System.out.println(song.getSongID()+" deleted!!");
+        System.out.println(song.getSongID() + " deleted!!");
         // SongDAO.deleteSong(song.getSongID());
     }
 
@@ -51,8 +52,8 @@ public class HomeController {
         allSong.sort(new Comparator<Song>() {
             @Override
             public int compare(Song o1, Song o2) {
-                long v1 = (long) ((Math.pow(o1.getCountPlayed(), 2) * 10) - (currDate.getTime()/1000 - o1.getLastPlayed().getTime()/1000));
-                long v2 = (long) ((Math.pow(o2.getCountPlayed(), 2) * 10) - (currDate.getTime()/1000 - o2.getLastPlayed().getTime()/1000));
+                long v1 = (long) ((Math.pow(o1.getCountPlayed(), 2) * 10) - (currDate.getTime() / 1000 - o1.getLastPlayed().getTime() / 1000));
+                long v2 = (long) ((Math.pow(o2.getCountPlayed(), 2) * 10) - (currDate.getTime() / 1000 - o2.getLastPlayed().getTime() / 1000));
                 return (int) (v2 - v1);
             }
         });

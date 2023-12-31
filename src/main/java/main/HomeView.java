@@ -58,7 +58,7 @@ public class HomeView {
                 } else {
                     imageButton = Buttons.ButtonWithImage(song.getImagePath(), 200, 200);
                 }
-                imageButton.setOnAction(actionEvent -> handlePlay(song, imageButton));
+
 
                 HBox.setHgrow(imageButton, Priority.ALWAYS);
                 sectionFreq.getChildren().add(imageButton);
