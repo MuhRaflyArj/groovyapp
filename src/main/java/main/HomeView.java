@@ -26,6 +26,7 @@ import java.util.List;
 public class HomeView {
     private static ContextMenu songOptions = new ContextMenu();
     private static MenuItem deleteSong;
+    private static List<Song> songs;
     public static void display(BorderPane root) {
         VBox homeBox = new VBox(30);
         File titleStyle = new File("styles/homeStyles.css");
@@ -42,15 +43,21 @@ public class HomeView {
         // Frequently played content
         HBox sectionFreq = new HBox();
         sectionFreq.setAlignment(Pos.CENTER);
+        if (SongDAO.getAllSong().isEmpty()) {
+            sectionFreq.setPrefHeight(200);
+            Text textEmpty = new Text("Empty");
+            textEmpty.getStyleClass().add("title-18");
+            sectionFreq.getChildren().add(textEmpty);
+        } else {
+            songs = HomeController.recommendation(Math.min(SongDAO.getAllSong().size(), 6));
 
-        List<Song> songs = HomeController.recommendation(6);
+            for (Song song : songs) {
+                Button imageButton = Buttons.ButtonWithImage(song.getImagePath(), 200, 200);
+                imageButton.setOnAction(actionEvent -> handlePlay(song, imageButton));
 
-        for (Song song : songs) {
-            Button imageButton = Buttons.ButtonWithImage(song.getImagePath(), 200, 200);
-            imageButton.setOnAction(actionEvent -> handlePlay(song, imageButton));
-
-            HBox.setHgrow(imageButton, Priority.ALWAYS);
-            sectionFreq.getChildren().add(imageButton);
+                HBox.setHgrow(imageButton, Priority.ALWAYS);
+                sectionFreq.getChildren().add(imageButton);
+            }
         }
 
         // Song Options Context Menu
