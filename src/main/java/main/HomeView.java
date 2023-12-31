@@ -36,14 +36,14 @@ public class HomeView {
         HBox sectionTitle = AppBars.Home();
 
         // Frequently played label
-        Text labelFreq = new Text("FREQUENTLY PLAYED");
+        Text labelFreq = new Text("FOR YOU");
         labelFreq.getStyleClass().add("title-18");
 
         // Frequently played content
         HBox sectionFreq = new HBox();
         sectionFreq.setAlignment(Pos.CENTER);
 
-        List<Song> songs = SongDAO.getMostPlayedSongs(6);
+        List<Song> songs = HomeController.recommendation(6);
 
         for (Song song : songs) {
             Button imageButton = Buttons.ButtonWithImage(song.getImagePath(), 200, 200);
@@ -206,12 +206,8 @@ public class HomeView {
             // Add iteration adding child for the main row
             Button songOption = Buttons.ButtonWithIcon("tabler-icon-dots.png", 16,16);
             songRow.getChildren().addAll(sideLeft, songOption);
-            songOption.setOnAction(e -> {
-                handleContextMenu(song, songOption);
-            });
-            songRow.onContextMenuRequestedProperty().set(e -> {
-                handleContextMenu(song, songOption);
-            });
+            songOption.setOnAction(e -> handleContextMenu(song, songOption));
+            songRow.onContextMenuRequestedProperty().set(e -> handleContextMenu(song, songOption));
             // Add row to the main VBox
             songListRecent.getChildren().add(songRow);
             iter++;
