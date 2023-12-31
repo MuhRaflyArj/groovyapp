@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import java.io.File;
 
@@ -62,6 +63,12 @@ public class Buttons {
         ImageView icon = new ImageView(new Image(imageFile.toURI().toString()));
         icon.setFitWidth(width);
         icon.setFitHeight(height);
+
+        double borderRadius = 30.0; // Adjust the radius as needed
+        Rectangle clip = new Rectangle(icon.getFitWidth(), icon.getFitHeight());
+        clip.setArcWidth(borderRadius);
+        clip.setArcHeight(borderRadius);
+        icon.setClip(clip);
 
         Button button = new Button("", icon);
         button.setPrefSize(width, height);

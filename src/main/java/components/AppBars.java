@@ -57,14 +57,15 @@ public class AppBars {
         HBox searchBar = SearchBars.SearchBar("search");
         Text titleText = new Text("Search");
         titleText.setStyle("-fx-fill: #ffffff;");
+        titleText.getStyleClass().add("app-bar-text");
 
         appBarComponent.getChildren().addAll(titleText, searchBar);
-        appBarComponent.getStylesheets().addAll(AppBars.class.getResource("appbarStyles.css").toExternalForm());
         appBarComponent.getStyleClass().add("search");
         appBarComponent.setAlignment(Pos.CENTER_LEFT);
 
         appBar.getChildren().addAll(appBarComponent);
-        appBar.getStylesheets().addAll(AppBars.class.getResource("appbarStyles.css").toExternalForm());
+        File appBarStyles = new File("styles/appbarStyles.css");
+        appBar.getStylesheets().add(appBarStyles.toURI().toString());
         appBar.getStyleClass().add("app-bar");
 
         return appBar;

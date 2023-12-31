@@ -14,7 +14,7 @@ import java.io.File;
 
 public class Main extends Application{
     public static Stage primaryStage;
-    BorderPane root = new BorderPane();
+    public static BorderPane root = new BorderPane();
     Scene scene;
 
     public static void main(String[] args) {

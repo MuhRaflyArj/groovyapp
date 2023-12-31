@@ -3,6 +3,7 @@ package components;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 
 import java.io.File;
 
@@ -65,6 +66,16 @@ public class Images {
         imageView.setFitWidth(100);
         imageView.setFitHeight(100);
 
+        double borderRadius = 20.0; // Adjust the radius as needed
+        Rectangle clip = new Rectangle(
+                imageView.getFitWidth(),
+                imageView.getFitHeight()
+        );
+        clip.setArcWidth(borderRadius);
+        clip.setArcHeight(borderRadius);
+
+        imageView.setClip(clip);
+
         StackPane imageBox = new StackPane();
         imageBox.getChildren().add(imageView);
 
@@ -82,6 +93,16 @@ public class Images {
         ImageView imageView = new ImageView(imageSource);
         imageView.setFitWidth(30);
         imageView.setFitHeight(30);
+
+        double borderRadius = 30.0; // Adjust the radius as needed
+        Rectangle clip = new Rectangle(
+                imageView.getFitWidth(),
+                imageView.getFitHeight()
+        );
+        clip.setArcWidth(borderRadius);
+        clip.setArcHeight(borderRadius);
+
+        imageView.setClip(clip);
 
         StackPane imageBox = new StackPane();
         imageBox.getChildren().add(imageView);

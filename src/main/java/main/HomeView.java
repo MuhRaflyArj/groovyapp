@@ -91,7 +91,12 @@ public class HomeView {
             Button listPlay = Buttons.ButtonWithIcon("tabler-icon-player-play-inactive.png", 16, 16);
             listPlay.setOnAction(e -> handlePlay(song, listPlay));
 
-            StackPane songThumb = Images.ExtraSmall(song.getImagePath());
+            StackPane songThumb;
+            if (song.getImagePath().isEmpty()) {
+                songThumb = Images.ExtraSmall("empty-song-small.png");
+            } else {
+                songThumb = Images.ExtraSmall(song.getImagePath());
+            }
             // Song detail is a vbox
             VBox songDetail = new VBox(-1);
             Text songTitle = new Text(song.getTitle());
@@ -190,7 +195,13 @@ public class HomeView {
             Button listPlay = Buttons.ButtonWithIcon("tabler-icon-player-play-inactive.png", 16, 16);
             listPlay.setOnAction(e -> handlePlay(song, listPlay));
 
-            StackPane songThumb = Images.ExtraSmall(song.getImagePath());
+            StackPane songThumb;
+            if (song.getImagePath().isEmpty()) {
+                songThumb = Images.ExtraSmall("empty-song-small.png");
+            } else {
+                songThumb = Images.ExtraSmall(song.getImagePath());
+            }
+
             // Song detail is a vbox
             VBox songDetail = new VBox(-1);
             Text songTitle = new Text(song.getTitle());

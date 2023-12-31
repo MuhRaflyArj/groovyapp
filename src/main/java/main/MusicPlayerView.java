@@ -46,7 +46,12 @@ public class MusicPlayerView {
         musicInfoDisplay.setMinWidth(360);
         musicInfoDisplay.getStyleClass().add("music-display");
 
-        StackPane musicImage = Images.Small(playedSong.getImagePath());
+        StackPane musicImage;
+        if (playedSong.getImagePath().isEmpty()) {
+            musicImage = Images.Small("empty-song-large.png");
+        } else {
+            musicImage = Images.Small(playedSong.getImagePath());
+        }
 
         Text title = new Text(playedSong.getTitle());
         title.getStyleClass().add("title");
