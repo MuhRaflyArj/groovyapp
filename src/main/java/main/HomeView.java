@@ -26,6 +26,7 @@ import java.util.List;
 public class HomeView {
     private static ContextMenu songOptions = new ContextMenu();
     private static MenuItem deleteSong;
+    private static List<Song> songs;
     public static void display(BorderPane root) {
         VBox homeBox = new VBox(30);
         File titleStyle = new File("styles/homeStyles.css");
@@ -36,21 +37,32 @@ public class HomeView {
         HBox sectionTitle = AppBars.Home();
 
         // Frequently played label
-        Text labelFreq = new Text("FREQUENTLY PLAYED");
+        Text labelFreq = new Text("FOR YOU");
         labelFreq.getStyleClass().add("title-18");
 
         // Frequently played content
         HBox sectionFreq = new HBox();
         sectionFreq.setAlignment(Pos.CENTER);
+        if (SongDAO.getAllSong().isEmpty()) {
+            sectionFreq.setPrefHeight(200);
+            Text textEmpty = new Text("Empty");
+            textEmpty.getStyleClass().add("title-18");
+            sectionFreq.getChildren().add(textEmpty);
+        } else {
+            songs = HomeController.recommendation(Math.min(SongDAO.getAllSong().size(), 6));
 
-        List<Song> songs = SongDAO.getMostPlayedSongs(6);
+            for (Song song : songs) {
+                Button imageButton;
+                if (song.getImagePath().equals("")) {
+                    imageButton = Buttons.ButtonWithImage("empty-song-large.png", 200, 200);
+                } else {
+                    imageButton = Buttons.ButtonWithImage(song.getImagePath(), 200, 200);
+                }
+                imageButton.setOnAction(actionEvent -> handlePlay(song, imageButton));
 
-        for (Song song : songs) {
-            Button imageButton = Buttons.ButtonWithImage(song.getImagePath(), 200, 200);
-            imageButton.setOnAction(actionEvent -> handlePlay(song, imageButton));
-
-            HBox.setHgrow(imageButton, Priority.ALWAYS);
-            sectionFreq.getChildren().add(imageButton);
+                HBox.setHgrow(imageButton, Priority.ALWAYS);
+                sectionFreq.getChildren().add(imageButton);
+            }
         }
 
         // Song Options Context Menu
@@ -92,7 +104,7 @@ public class HomeView {
             listPlay.setOnAction(e -> handlePlay(song, listPlay));
 
             StackPane songThumb;
-            if (song.getImagePath().isEmpty()) {
+            if (song.getImagePath().equals("")) {
                 songThumb = Images.ExtraSmall("empty-song-small.png");
             } else {
                 songThumb = Images.ExtraSmall(song.getImagePath());
@@ -196,12 +208,11 @@ public class HomeView {
             listPlay.setOnAction(e -> handlePlay(song, listPlay));
 
             StackPane songThumb;
-            if (song.getImagePath().isEmpty()) {
+            if (song.getImagePath().equals("")) {
                 songThumb = Images.ExtraSmall("empty-song-small.png");
             } else {
                 songThumb = Images.ExtraSmall(song.getImagePath());
             }
-
             // Song detail is a vbox
             VBox songDetail = new VBox(-1);
             Text songTitle = new Text(song.getTitle());
@@ -217,12 +228,8 @@ public class HomeView {
             // Add iteration adding child for the main row
             Button songOption = Buttons.ButtonWithIcon("tabler-icon-dots.png", 16,16);
             songRow.getChildren().addAll(sideLeft, songOption);
-            songOption.setOnAction(e -> {
-                handleContextMenu(song, songOption);
-            });
-            songRow.onContextMenuRequestedProperty().set(e -> {
-                handleContextMenu(song, songOption);
-            });
+            songOption.setOnAction(e -> handleContextMenu(song, songOption));
+            songRow.onContextMenuRequestedProperty().set(e -> handleContextMenu(song, songOption));
             // Add row to the main VBox
             songListRecent.getChildren().add(songRow);
             iter++;

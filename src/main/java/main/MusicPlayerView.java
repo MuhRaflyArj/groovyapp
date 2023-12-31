@@ -47,10 +47,12 @@ public class MusicPlayerView {
         musicInfoDisplay.getStyleClass().add("music-display");
 
         StackPane musicImage;
-        if (playedSong.getImagePath().isEmpty()) {
+        System.out.println(playedSong.getImagePath());
+        if (playedSong.getImagePath().equals("")) {
             musicImage = Images.Small("empty-song-large.png");
         } else {
-            musicImage = Images.Small(playedSong.getImagePath());
+            musicImage = Images.Small("empty-song-large.png");
+            //musicImage = Images.Small(playedSong.getImagePath());
         }
 
         Text title = new Text(playedSong.getTitle());
