@@ -141,7 +141,13 @@ public class AddFileView {
             case "format_not_supported":
                 new AddFilePopupError("Format not Supported", "Please check the dragged file");
                 break;
+            case "duplicated_song":
+                new AddFilePopup("Duplicated Song", "Cannot add duplicated song. There are "+AddFileController.duplicateCount+" Duplicated song in a files or folder you imported");
+                break;
             case "import_success":
+                if (AddFileController.duplicateCount > 0){
+                    new AddFilePopup("Duplicated Song", "Cannot add duplicated song. There are "+AddFileController.duplicateCount+" Duplicated song in a files or folder you imported");
+                }
                 new AddFilePopup("Song Added", "Check all song for more information");
                 break;
             case "import_failure":
@@ -151,6 +157,7 @@ public class AddFileView {
                 System.out.println("tes");
         }
 
+        AddFileController.duplicateCount = 0;
         System.out.printf(importStatus);
         filePath.setText("");
         droppedFiles.clear();

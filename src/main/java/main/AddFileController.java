@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class AddFileController {
+    static int duplicateCount = 0;
     public static void display(BorderPane root) {
         AddFileView.display(root);
     }
@@ -50,6 +51,9 @@ public class AddFileController {
                     if(file.isFile() && name.endsWith("mp3")){
                         jumlahLagu++;
                         status = importFile(file);
+                        if (status.equals("duplicated_song")){
+                            duplicateCount++;
+                        }
                     }
                 }
             }
@@ -76,6 +80,9 @@ public class AddFileController {
         for (File file : droppedFiles) {
             System.out.println("Handling dropped file: " + file.getAbsolutePath());
             status = importFile(file);
+            if (status.equals("duplicated_song")){
+                duplicateCount++;
+            }
         }
 
         return status;
@@ -93,6 +100,14 @@ public class AddFileController {
                 song.setSongID("S001");
             }else{
                 List<Song> allSong = SongDAO.getAllSong();
+
+                for (Song songInAllSong : allSong){
+                    if (songInAllSong.getTitle().equals(tag.getTitle()) && songInAllSong.getArtist().equals(tag.getArtist())){
+                        status = "duplicated_song";
+                        return status;
+                    }
+                }
+
                 Song lastSong = allSong.get(allSong.size()-1);
 
                 int lastID = Integer.parseInt(lastSong.getSongID().substring(1)) + 1;
