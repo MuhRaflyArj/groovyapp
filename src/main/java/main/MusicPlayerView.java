@@ -51,8 +51,7 @@ public class MusicPlayerView {
         if (playedSong.getImagePath().equals("")) {
             musicImage = Images.Small("empty-song-large.png");
         } else {
-            musicImage = Images.Small("empty-song-large.png");
-            //musicImage = Images.Small(playedSong.getImagePath());
+            musicImage = Images.Small(playedSong.getImagePath());
         }
 
         Text title = new Text(playedSong.getTitle());
