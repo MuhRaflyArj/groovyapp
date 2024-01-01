@@ -33,7 +33,11 @@ public class AddFileController {
         }
     }
 
-    public static void importFolder(String filePath){
+    public static String importFolder(String filePath){
+        String status = "";
+        int jumlahLagu = 0;
+
+        System.out.println("Handling selected folder: " + filePath);
         if(!Objects.equals(filePath, "")){
             File directory = new File(filePath);
             File[] files = directory.listFiles();
@@ -44,97 +48,86 @@ public class AddFileController {
                     String name = file.getName();
 
                     if(file.isFile() && name.endsWith("mp3")){
-                        try{
-                            Mp3File mp3 = new Mp3File(file.getPath());
-                            ID3v2 tag = mp3.getId3v2Tag();
-
-                            Song song = new Song();
-
-                            if(SongDAO.getAllSong().isEmpty()){
-                                song.setSongID("S001");
-                            }else{
-                                List<Song> allSong = SongDAO.getAllSong();
-                                Song lastSong = allSong.get(allSong.size()-1);
-
-                                int lastID = Integer.parseInt(lastSong.getSongID().substring(1)) + 1;
-
-                                song.setSongID(String.format("S%03d", lastID));
-                            }
-
-
-                            song.setTitle(tag.getTitle());
-                            song.setArtist(tag.getArtist());
-                            song.setAlbumName(tag.getAlbum());
-                            song.setYear(Integer.parseInt(tag.getYear()));
-                            song.setLength((int)mp3.getLengthInSeconds());
-                            song.setTrackNo(Integer.parseInt(tag.getTrack()));
-
-                            List<Integer> genreList = new ArrayList<>();
-                            genreList.add(tag.getGenre());
-                            song.setGenre(genreList);
-
-                            song.setFilePath(file.getAbsolutePath());
-                            song.setImagePath("");
-
-                            Date date = new Date(0);
-                            song.setLastPlayed(date);
-
-                            song.setCountPlayed(0);
-
-                            song.display();
-                            SongDAO.createSong(song);
-                        }
-                        catch(Exception e) {e.printStackTrace();}
+                        jumlahLagu++;
+                        status = importFile(file);
                     }
                 }
             }
         }
+
+        if (jumlahLagu == 0){
+            status = "no_song_found_in_folder";
+        }
+
+        return status;
     }
 
-    public static void importFile(File file){
-        String name = file.getName();
-        if(file.isFile() && name.endsWith("mp3")){
-            try{
-                Mp3File mp3 = new Mp3File(file.getPath());
-                ID3v2 tag = mp3.getId3v2Tag();
+    public static String importDragAndDrop(List<File> droppedFiles) {
+        String status = "";
 
-                Song song = new Song();
-
-                if(SongDAO.getAllSong().isEmpty()){
-                    song.setSongID("S001");
-                }else{
-                    List<Song> allSong = SongDAO.getAllSong();
-                    Song lastSong = allSong.get(allSong.size()-1);
-
-                    int lastID = Integer.parseInt(lastSong.getSongID().substring(1)) + 1;
-
-                    song.setSongID(String.format("S%03d", lastID));
-                }
-
-
-                song.setTitle(tag.getTitle());
-                song.setArtist(tag.getArtist());
-                song.setAlbumName(tag.getAlbum());
-                song.setYear(Integer.parseInt(tag.getYear()));
-                song.setLength((int)mp3.getLengthInSeconds());
-                song.setTrackNo(Integer.parseInt(tag.getTrack()));
-
-                List<Integer> genreList = new ArrayList<>();
-                genreList.add(tag.getGenre());
-                song.setGenre(genreList);
-
-                song.setFilePath(file.getAbsolutePath());
-                song.setImagePath("");
-
-                Date date = new Date(0);
-                song.setLastPlayed(date);
-
-                song.setCountPlayed(0);
-
-                song.display();
-                SongDAO.createSong(song);
+        for (File file : droppedFiles) {
+            String name = file.getName();
+            if (file.isFile() && !name.endsWith("mp3")) {
+                status = "format_not_supported";
+                return status;
             }
-            catch(Exception e) {e.printStackTrace();}
         }
+
+        for (File file : droppedFiles) {
+            System.out.println("Handling dropped file: " + file.getAbsolutePath());
+            status = importFile(file);
+        }
+
+        return status;
+    }
+
+    public static String importFile(File file){
+        String status;
+        try{
+            Mp3File mp3 = new Mp3File(file.getPath());
+            ID3v2 tag = mp3.getId3v2Tag();
+
+            Song song = new Song();
+
+            if(SongDAO.getAllSong().isEmpty()){
+                song.setSongID("S001");
+            }else{
+                List<Song> allSong = SongDAO.getAllSong();
+                Song lastSong = allSong.get(allSong.size()-1);
+
+                int lastID = Integer.parseInt(lastSong.getSongID().substring(1)) + 1;
+
+                song.setSongID(String.format("S%03d", lastID));
+            }
+
+            song.setTitle(tag.getTitle());
+            song.setArtist(tag.getArtist());
+            song.setAlbumName(tag.getAlbum());
+            song.setYear(Integer.parseInt(tag.getYear()));
+            song.setLength((int)mp3.getLengthInSeconds());
+            song.setTrackNo(Integer.parseInt(tag.getTrack()));
+
+            List<Integer> genreList = new ArrayList<>();
+            genreList.add(tag.getGenre());
+            song.setGenre(genreList);
+
+            song.setFilePath(file.getAbsolutePath());
+            song.setImagePath("");
+
+            Date date = new Date(0);
+            song.setLastPlayed(date);
+
+            song.setCountPlayed(0);
+
+            song.display();
+            SongDAO.createSong(song);
+            status = "import_success";
+
+        } catch(Exception e) {
+            e.printStackTrace();
+            status = "import_failure";
+            return status;
+        }
+        return status;
     }
 }

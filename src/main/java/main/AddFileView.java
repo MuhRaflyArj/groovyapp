@@ -2,6 +2,7 @@ package main;
 
 import components.Buttons;
 import components.TextFields;
+import dao.SongDAO;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +13,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import object.Song;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -103,41 +105,55 @@ public class AddFileView {
         });
 
         sbBrowse.setOnAction(e -> handleSbBrowse(filePath));
-        sbImport.setOnAction(e -> handleSbImport(root, filePath, droppedSong, dragTextContainer));
+        sbImport.setOnAction(e -> handleSbImport(filePath, droppedSong, dragTextContainer));
     }
 
     private static void handleSbBrowse(TextField filePath) {
         AddFileController.browseFile(filePath);
     }
 
-    private static void handleSbImport(BorderPane root, TextField filePath, VBox droppedSong, VBox dragTextContainer) {
-
+    private static void handleSbImport(TextField filePath, VBox droppedSong, VBox dragTextContainer) {
+        String importStatus = "";
         if (!droppedFiles.isEmpty() && !filePath.getText().isEmpty()) {
-            // Import file dari drag and drop
-            for (File file : droppedFiles) {
-                System.out.println("Handling dropped file: " + file.getAbsolutePath());
-                AddFileController.importFile(file);
-            }
-            // Import Folder
+            AddFileController.importDragAndDrop(droppedFiles);
+
             String selectedFilePath = filePath.getText();
-            System.out.println("Handling selected folder: " + selectedFilePath);
-            new AddFilePopup("Song Added", "Check all song for more information");
-            AddFileController.importFolder(selectedFilePath);
+            importStatus = AddFileController.importFolder(selectedFilePath);
+
         } else if (!droppedFiles.isEmpty()) {
-            new AddFilePopup("Song Added", "Check all song for more information");
-            for (File file : droppedFiles) {
-                System.out.println("Handling dropped file: " + file.getAbsolutePath());
-                AddFileController.importFile(file);
-            }
+            importStatus = AddFileController.importDragAndDrop(droppedFiles);
+
         } else if(!filePath.getText().isEmpty()){
             String selectedFilePath = filePath.getText();
-            System.out.println("Handling selected folder: " + selectedFilePath);
-            AddFileController.importFolder(selectedFilePath);
-        }else if (droppedFiles.isEmpty()){
-            new AddFilePopupError("No Song Added", "please add song first to import");
+            importStatus = AddFileController.importFolder(selectedFilePath);
+
+        } else if (droppedFiles.isEmpty() && filePath.getText().isEmpty()){
+            importStatus = "no_file_or_folder_added";
         }
 
+        switch (importStatus){
+            case "no_file_or_folder_added":
+                new AddFilePopupError("No File or Folder Added", "Please add File or Folder first to import");
+                break;
+            case "no_song_found_in_folder":
+                new AddFilePopupError("No Song Found In Folder", "Please check content of the folder");
+                break;
+            case "format_not_supported":
+                new AddFilePopupError("Format not Supported", "Please check the dragged file");
+                break;
+            case "import_success":
+                new AddFilePopup("Song Added", "Check all song for more information");
+                break;
+            case "import_failure":
+                new AddFilePopupError("Import Failed", "Import process Failed");
+                break;
+            default:
+                System.out.println("tes");
+        }
+
+        System.out.printf(importStatus);
         filePath.setText("");
+        droppedFiles.clear();
         droppedSong.getChildren().clear();
         dragTextContainer.setVisible(true);
     }
