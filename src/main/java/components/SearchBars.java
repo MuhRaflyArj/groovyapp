@@ -1,11 +1,9 @@
 package components;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.SearchController;
 

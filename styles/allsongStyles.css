@@ -1,5 +1,6 @@
 .all-song {
     -fx-background-color: #1B1A1A;
+    -fx-padding: 10px; /* Menambahkan padding keseluruhan */
 }
 
 .title {
@@ -9,5 +10,36 @@
     -fx-font-weight: 700;
     -fx-line-height: normal;
     -fx-fill: #FFFFFF;
+    -fx-margin-bottom: 10px; /* Tidak ada margin di JavaFX, gunakan padding pada parent */
+}
 
+.song {
+    &.num {
+        -fx-font-family: "Lexend";
+        -fx-font-size: 14px;
+        -fx-font-style: normal;
+        -fx-font-weight: 400;
+        -fx-line-height: 17px;
+        -fx-fill: #FFFFFF; /* Warna teks putih */
+        -fx-margin-bottom: 5px; /* Tidak ada margin di JavaFX, gunakan padding pada parent */
+    }
+
+    &.title {
+        -fx-font-family: "Lexend";
+        -fx-font-size: 16px;
+        -fx-font-style: normal;
+        -fx-font-weight: 500;
+        -fx-line-height: 20px;
+        -fx-fill: #FFFFFF; /* Warna teks putih */
+        -fx-margin-bottom: 8px; /* Tidak ada margin di JavaFX, gunakan padding pada parent */
+    }
+
+    &.artist {
+        -fx-font-family: "Lexend";
+        -fx-font-size: 10px;
+        -fx-font-style: normal;
+        -fx-font-weight: 300;
+        -fx-line-height: 12px;
+        -fx-fill: #FFFFFF; /* Warna teks putih */
+    }
 }
