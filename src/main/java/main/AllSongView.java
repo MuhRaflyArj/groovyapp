@@ -24,7 +24,7 @@ import static main.HomeView.handlePlay;
 public class AllSongView {
 
     public static void display(BorderPane root) {
-        VBox allSong = new VBox();
+        VBox allSong = new VBox(30);
         allSong.getStyleClass().add("all-song");
         VBox allSongComponent = new VBox(30);
 
@@ -38,7 +38,7 @@ public class AllSongView {
 
         allSongComponent.getChildren().addAll(titleAndSearchContainer);
 
-        VBox.setMargin(allSongComponent, new Insets(25, 25, 25, 50));
+        allSongComponent.setPadding(new Insets(50,50,0,50));
         File addFileStyles = new File("styles/allsongStyles.css");
         allSongComponent.getStylesheets().add(addFileStyles.toURI().toString());
 
@@ -50,20 +50,24 @@ public class AllSongView {
 
         Collections.sort(allSongs, Comparator.comparing(Song::getTitle));
 
+        VBox songList = new VBox(10);
         for (int i = 0; i < allSongs.size(); i++) {
             Song song = allSongs.get(i);
             HBox songRow = createSongRow(song);
             // Set nomor urut lagu secara dinamis berdasarkan indeks
             setTextForSongNumber(songRow, i + 1);
-            allSong.getChildren().add(songRow);
+            songList.getChildren().add(songRow);
         }
 
-        ScrollPane scrollPaneSong = new ScrollPane(allSong);
-        scrollPaneSong.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPaneSong.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPaneSong.setFitToWidth(true);
-        scrollPaneSong.setFitToHeight(true);
-        root.setCenter(scrollPaneSong);
+        allSong.getChildren().add(songList);
+
+        // ScrollPane scrollPaneSong = new ScrollPane(allSong);
+        // scrollPaneSong.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        // scrollPaneSong.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        // scrollPaneSong.setFitToWidth(true);
+        // scrollPaneSong.setFitToHeight(true);
+        // root.setCenter(scrollPaneSong);
+        root.setCenter(allSong);
 
     }
 
@@ -86,7 +90,7 @@ public class AllSongView {
     private static HBox createSongRow(Song song) {
         HBox songRow = new HBox();
         songRow.setAlignment(Pos.CENTER_LEFT);
-        songRow.setMaxWidth(1050);
+        songRow.setMaxWidth(1280);
 
         HBox sideLeft = new HBox(20);
         sideLeft.setAlignment(Pos.CENTER_LEFT);
