@@ -1,0 +1,44 @@
+/* Ga kepake, gagal wae pas digabungin*/
+
+.root {
+    -fx-background-color: #2E2E2E;
+}
+
+.grid-pane {
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-padding: 50 100 50 100;
+    -fx-background-color: transparent;
+}
+
+
+.text-content {
+    -fx-font-family: 'Lexend';
+    -fx-font-size: 24px;
+    -fx-fill: #FFFFFF;
+    -fx-text-alignment: center;
+}
+
+
+.button-box {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+
+.cancel-button {
+    -fx-background-color: #1B1A1A;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: 'Lexend';
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+
+.ok-button {
+    -fx-background-color: #FF2222;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: 'Lexend';
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}

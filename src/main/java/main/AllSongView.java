@@ -114,7 +114,7 @@ public class AllSongView {
 
         songDetail.getChildren().addAll(songTitle, songArtist);
 
-        VBox.setMargin(songRow, new Insets(0, 0, 10, 50));
+        VBox.setMargin(songRow, new Insets(0, 20, 10, 50));
 
         sideLeft.getChildren().addAll(songNumber, listPlay, songThumb, songDetail);
         HBox.setHgrow(sideLeft, Priority.ALWAYS);

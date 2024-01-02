@@ -298,11 +298,24 @@ public class HomeView {
     }
 
     static void handleContextMenu(Song song, Node target) {
+        MenuItem deleteSongMenuItem = new MenuItem("Delete");
+        deleteSongMenuItem.setOnAction(e -> {
+            boolean confirmDelete = DeleteConfirmationPopup.show(song.getTitle());
+            if (confirmDelete) {
+                HomeController.deleteSong(song);
+            }
+        });
+        ContextMenu songOptions = new ContextMenu(deleteSongMenuItem);
+        songOptions.show(target, Side.TOP, -20, 5);
+    }
+
+    /* static void handleContextMenu(Song song, Node target) {
         deleteSong.setOnAction(e -> {
             HomeController.deleteSong(song);
             songOptions.hide();
         });
         songOptions.show(target, Side.TOP, -20, 5);
     }
+     */
 
 }
