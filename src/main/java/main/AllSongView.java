@@ -38,7 +38,7 @@ public class AllSongView {
 
         allSongComponent.getChildren().addAll(titleAndSearchContainer);
 
-        VBox.setMargin(allSongComponent, new Insets(25, 25, 25, 50));
+        VBox.setMargin(allSongComponent, new Insets(50, 50, 20, 50));
         File addFileStyles = new File("styles/allsongStyles.css");
         allSongComponent.getStylesheets().add(addFileStyles.toURI().toString());
 
