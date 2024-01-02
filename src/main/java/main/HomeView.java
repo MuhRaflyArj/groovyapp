@@ -289,7 +289,7 @@ public class HomeView {
         root.setCenter(home);
     }
 
-    private static void handlePlay(Song song, Button clicked) {
+    static void handlePlay(Song song, Button clicked) {
         HomeController.playSong(song);
     }
 
@@ -297,7 +297,7 @@ public class HomeView {
         HomeController.switchPage(page);
     }
 
-    private static void handleContextMenu(Song song, Node target) {
+    static void handleContextMenu(Song song, Node target) {
         deleteSong.setOnAction(e -> {
             HomeController.deleteSong(song);
             songOptions.hide();
