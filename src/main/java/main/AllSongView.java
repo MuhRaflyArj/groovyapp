@@ -45,7 +45,6 @@ public class AllSongView {
         allSong.getStylesheets().add(addFileStyles.toURI().toString());
         allSong.getChildren().add(allSongComponent);
 
-        // Logic to display the list of all songs from the database
         List<Song> allSongs = SongDAO.getAllSong();
 
         Collections.sort(allSongs, Comparator.comparing(Song::getTitle));
@@ -54,7 +53,6 @@ public class AllSongView {
         for (int i = 0; i < allSongs.size(); i++) {
             Song song = allSongs.get(i);
             HBox songRow = createSongRow(song);
-            // Set nomor urut lagu secara dinamis berdasarkan indeks
             setTextForSongNumber(songRow, i + 1);
             songList.getChildren().add(songRow);
         }
@@ -72,7 +70,6 @@ public class AllSongView {
     }
 
     private static void updateDisplay(VBox allSong, ObservableList<Song> filteredSongs) {
-        // Clear existing display and add filtered songs
         allSong.getChildren().clear();
         for (int i = 0; i < filteredSongs.size(); i++) {
             Song song = filteredSongs.get(i);
@@ -95,7 +92,7 @@ public class AllSongView {
         HBox sideLeft = new HBox(20);
         sideLeft.setAlignment(Pos.CENTER_LEFT);
 
-        Text songNumber = new Text("01"); // You need to adjust the song number
+        Text songNumber = new Text("01");
         songNumber.getStyleClass().addAll("song", "num");
 
         Button listPlay = Buttons.ButtonWithIcon("tabler-icon-player-play-inactive.png", 16, 16);
