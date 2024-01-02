@@ -30,6 +30,8 @@ public class Images {
         Image imageSource = new Image(image.toURI().toString());
 
         ImageView imageView = new ImageView(imageSource);
+        imageView.setFitWidth(300);
+        imageView.setFitHeight(300);
         imageView.getStyleClass().add("large");
 
         StackPane imageBox = new StackPane();
@@ -48,6 +50,16 @@ public class Images {
         ImageView imageView = new ImageView(imageSource);
         imageView.setFitWidth(200);
         imageView.setFitHeight(200);
+
+        double borderRadius = 20.0; // Adjust the radius as needed
+        Rectangle clip = new Rectangle(
+                imageView.getFitWidth(),
+                imageView.getFitHeight()
+        );
+        clip.setArcWidth(borderRadius);
+        clip.setArcHeight(borderRadius);
+
+        imageView.setClip(clip);
 
         StackPane imageBox = new StackPane();
         imageBox.getChildren().add(imageView);

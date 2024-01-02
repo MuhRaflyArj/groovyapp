@@ -31,6 +31,7 @@ public class SearchView {
         HBox sectionTitle = AppBars.Search();
         Text searchedText = new Text("Result for \""+keyword+"\"");
         searchedText.getStyleClass().add("result-text");
+
         int iter = 1;
         VBox songListMost = new VBox(20);
 
@@ -91,7 +92,7 @@ public class SearchView {
 
     private static void handleContextMenu(Song song, Node target) {
         deleteSong.setOnAction(e -> {
-            HomeController.deleteSong(song);
+            SearchController.deleteSong(song);
             songOptions.hide();
         });
         songOptions.show(target, Side.TOP, -20, 5);

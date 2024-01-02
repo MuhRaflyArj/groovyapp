@@ -79,7 +79,8 @@ public class AppBars {
         appBarComponent.getChildren().addAll(back);
 
         appBar.getChildren().addAll(appBarComponent);
-        appBar.getStylesheets().addAll(AppBars.class.getResource("appbarStyles.css").toExternalForm());
+        File appBarStyles = new File("styles/appbarStyles.css");
+        appBar.getStylesheets().add(appBarStyles.toURI().toString());
         appBar.getStyleClass().add("app-bar");
 
         return appBar;
