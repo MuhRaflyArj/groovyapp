@@ -43,7 +43,7 @@ public class HomeController {
 
     public static void deleteSong(Song song) {
         System.out.println(song.getSongID() + " deleted!!");
-        // SongDAO.deleteSong(song.getSongID());
+        SongDAO.deleteSong(song.getSongID());
     }
 
     public static List<Song> recommendation(int limit) {
