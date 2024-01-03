@@ -53,7 +53,7 @@ public class PlaylistDAO {
         return null;
     }
 
-    public static void createSong(Playlist playlist) {
+    public static void createPlaylist(Playlist playlist) {
         BasicDBObject document = new BasicDBObject();
         document = convertPlaylistToDBObject(playlist);
 
