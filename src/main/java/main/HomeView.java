@@ -321,16 +321,21 @@ public class HomeView {
     }
 
     static void handleContextMenu(Song song, Node target) {
-        MenuItem deleteSongMenuItem = new MenuItem("Delete");
+        MenuItem deleteSongMenuItem = new MenuItem("Delete Song");
+        deleteSongMenuItem.setId("deleteMenuItem"); // Set an id for the MenuItem
+
         deleteSongMenuItem.setOnAction(e -> {
             boolean confirmDelete = DeleteConfirmationPopup.show(song.getTitle());
             if (confirmDelete) {
                 HomeController.deleteSong(song);
             }
         });
+
         ContextMenu songOptions = new ContextMenu(deleteSongMenuItem);
+        songOptions.setId("songOptions"); // Set an id for the ContextMenu
         songOptions.show(target, Side.TOP, -20, 5);
     }
+
     
     /* static void handleContextMenu(Song song, Node target) {
         deleteSong.setOnAction(e -> {
