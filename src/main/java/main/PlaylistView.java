@@ -32,7 +32,12 @@ public class PlaylistView {
 
         HBox playlistInfo = new HBox(25);
 
-        StackPane playlistImage = Images.Medium(playlist.getCoverPath());
+        StackPane playlistImage;
+        if (playlist.getCoverPath().equals("")) {
+            playlistImage = Images.Medium("empty-song-large.png");
+        } else {
+            playlistImage = Images.Medium(playlist.getCoverPath());
+        }
 
         VBox playlistDesc = new VBox(10);
         Text title = new Text(playlist.getName());
