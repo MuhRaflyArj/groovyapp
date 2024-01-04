@@ -326,6 +326,7 @@ public class HomeView {
 
         deleteSongMenuItem.setOnAction(e -> {
             boolean confirmDelete = DeleteConfirmationPopup.show(song.getTitle());
+            System.out.println(confirmDelete);
             if (confirmDelete) {
                 HomeController.deleteSong(song);
             }

@@ -48,4 +48,12 @@ public class Playlist {
     public void setCoverPath(String coverPath) {
         this.coverPath = coverPath;
     }
+
+    public void display(){
+        System.out.println("PlaylistID       : " + playlistID);
+        System.out.println("Name             : " + name);
+        System.out.println("Desc             : " + desc);
+        System.out.println("Song List        : " + songList);
+        System.out.println("Cover Path       : " + coverPath);
+    }
 }

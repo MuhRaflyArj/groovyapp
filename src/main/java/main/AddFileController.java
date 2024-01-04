@@ -17,6 +17,7 @@ import java.util.Objects;
 
 public class AddFileController {
     static int duplicateCount = 0;
+
     public static void display(BorderPane root) {
         AddFileView.display(root);
     }
@@ -121,6 +122,8 @@ public class AddFileController {
             song.setYear(Integer.parseInt(tag.getYear()));
             song.setLength((int)mp3.getLengthInSeconds());
             song.setTrackNo(Integer.parseInt(tag.getTrack()));
+
+            System.out.println("tes");
 
             List<Integer> genreList = new ArrayList<>();
             genreList.add(tag.getGenre());
