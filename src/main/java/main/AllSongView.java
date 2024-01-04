@@ -43,8 +43,8 @@ public class AllSongView {
         allSongComponent.getStylesheets().add(addFileStyles.toURI().toString());
         allSong.getStylesheets().add(addFileStyles.toURI().toString());
         allSong.getChildren().add(allSongComponent);
-
         List<Song> allSongs = SongDAO.getAllSong();
+
         Collections.sort(allSongs, Comparator.comparing(Song::getTitle));
 
         VBox songList = new VBox(10);
@@ -57,13 +57,11 @@ public class AllSongView {
 
         allSong.getChildren().add(songList);
 
-        ScrollPane scrollPane = new ScrollPane(songList);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
-        allSong.getChildren().addAll(allSongComponent, scrollPane);
-        root.setCenter(allSong);
+        // ScrollPane scrollPaneSong = new ScrollPane(allSong);
+        // scrollPaneSong.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        // scrollPaneSong.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        // scrollPaneSong.setFitToWidth(true);
+        // scrollPaneSong.setFitToHeight(true);
         // root.setCenter(scrollPaneSong);
         root.setCenter(allSong);
 
