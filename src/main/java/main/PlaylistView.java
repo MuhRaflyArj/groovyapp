@@ -83,50 +83,52 @@ public class PlaylistView {
 
         for (String songID: playlist.getSongList()) {
             Song song = SongDAO.getSongById(songID);
-            // Create the row
-            HBox songRow = new HBox();
-            songRow.setAlignment(Pos.CENTER_LEFT);
-            songRow.setMaxWidth(1280);
-            // Create left side
-            HBox sideLeft = new HBox(20);
-            sideLeft.setAlignment(Pos.CENTER_LEFT);
+            if (song != null) {
+                // Create the row
+                HBox songRow = new HBox();
+                songRow.setAlignment(Pos.CENTER_LEFT);
+                songRow.setMaxWidth(1280);
+                // Create left side
+                HBox sideLeft = new HBox(20);
+                sideLeft.setAlignment(Pos.CENTER_LEFT);
 
-            Text songNumber = new Text(iter<10 ? "0"+iter : String.valueOf(iter));
-            songNumber.getStyleClass().addAll("song-num");
+                Text songNumber = new Text(iter < 10 ? "0" + iter : String.valueOf(iter));
+                songNumber.getStyleClass().addAll("song-num");
 
-            Button listPlay = Buttons.ButtonWithIcon("tabler-icon-player-play-inactive.png", 16, 16);
-            listPlay.setOnAction(e -> handlePlay(song, playlist, listPlay));
+                Button listPlay = Buttons.ButtonWithIcon("tabler-icon-player-play-inactive.png", 16, 16);
+                listPlay.setOnAction(e -> handlePlay(song, playlist, listPlay));
 
-            StackPane songThumb;
-            if (song.getImagePath().equals("")) {
-                songThumb = Images.ExtraSmall("empty-song-small.png");
-            } else {
-                songThumb = Images.ExtraSmall(song.getImagePath());
+                StackPane songThumb;
+                if (song.getImagePath().equals("")) {
+                    songThumb = Images.ExtraSmall("empty-song-small.png");
+                } else {
+                    songThumb = Images.ExtraSmall(song.getImagePath());
+                }
+                // Song detail is a vbox
+                VBox songDetail = new VBox(-1);
+                Text songTitle = new Text(song.getTitle());
+                songTitle.getStyleClass().addAll("song-title");
+
+                Text songArtist = new Text(song.getArtist());
+                songArtist.getStyleClass().addAll("song-artist");
+
+                songDetail.getChildren().addAll(songTitle, songArtist);
+                // Assign child and setting hgrow
+                sideLeft.getChildren().addAll(songNumber, listPlay, songThumb, songDetail);
+                HBox.setHgrow(sideLeft, Priority.ALWAYS);
+                // Add iteration adding child for the main row
+                Button songOption = Buttons.ButtonWithIcon("tabler-icon-dots.png", 16, 16);
+                songRow.getChildren().addAll(sideLeft, songOption);
+                songOption.setOnAction(e -> {
+                    handleContextMenu(playlist, song, songOption, root);
+                });
+                songRow.onContextMenuRequestedProperty().set(e -> {
+                    handleContextMenu(playlist, song, songOption, root);
+                });
+                // Add row to the main VBox
+                songList.getChildren().add(songRow);
+                iter++;
             }
-            // Song detail is a vbox
-            VBox songDetail = new VBox(-1);
-            Text songTitle = new Text(song.getTitle());
-            songTitle.getStyleClass().addAll("song-title");
-
-            Text songArtist = new Text(song.getArtist());
-            songArtist.getStyleClass().addAll("song-artist");
-
-            songDetail.getChildren().addAll(songTitle,songArtist);
-            // Assign child and setting hgrow
-            sideLeft.getChildren().addAll(songNumber, listPlay, songThumb, songDetail);
-            HBox.setHgrow(sideLeft, Priority.ALWAYS);
-            // Add iteration adding child for the main row
-            Button songOption = Buttons.ButtonWithIcon("tabler-icon-dots.png", 16,16);
-            songRow.getChildren().addAll(sideLeft, songOption);
-            songOption.setOnAction(e -> {
-                handleContextMenu(playlist, song, songOption, root);
-            });
-            songRow.onContextMenuRequestedProperty().set(e -> {
-                handleContextMenu(playlist, song, songOption, root);
-            });
-            // Add row to the main VBox
-            songList.getChildren().add(songRow);
-            iter++;
         }
 
         allSong.getChildren().addAll(appBar, playlistInfo, buttons, songList);
