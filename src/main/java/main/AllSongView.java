@@ -37,16 +37,14 @@ public class AllSongView {
         titleAndSearchContainer.getChildren().addAll(textTitle, searchBar);
 
         allSongComponent.getChildren().addAll(titleAndSearchContainer);
-
         allSongComponent.setPadding(new Insets(50,50,0,50));
+
         File addFileStyles = new File("styles/allsongStyles.css");
         allSongComponent.getStylesheets().add(addFileStyles.toURI().toString());
-
         allSong.getStylesheets().add(addFileStyles.toURI().toString());
         allSong.getChildren().add(allSongComponent);
 
         List<Song> allSongs = SongDAO.getAllSong();
-
         Collections.sort(allSongs, Comparator.comparing(Song::getTitle));
 
         VBox songList = new VBox(10);
@@ -59,11 +57,13 @@ public class AllSongView {
 
         allSong.getChildren().add(songList);
 
-        // ScrollPane scrollPaneSong = new ScrollPane(allSong);
-        // scrollPaneSong.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        // scrollPaneSong.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        // scrollPaneSong.setFitToWidth(true);
-        // scrollPaneSong.setFitToHeight(true);
+        ScrollPane scrollPane = new ScrollPane(songList);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        allSong.getChildren().addAll(allSongComponent, scrollPane);
+        root.setCenter(allSong);
         // root.setCenter(scrollPaneSong);
         root.setCenter(allSong);
 
