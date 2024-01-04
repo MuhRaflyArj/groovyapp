@@ -16,18 +16,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import object.Song;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeView {
     private static ContextMenu songOptions = new ContextMenu();
     private static MenuItem deleteSong;
     private static List<Song> songs;
+    private static boolean noSong = SongDAO.getAllSong().isEmpty();
+    private static VBox songListRecent;
+    private static VBox songListMost;
     public static void display(BorderPane root) {
+        noSong = SongDAO.getAllSong().isEmpty();
         VBox homeBox = new VBox(30);
         File titleStyle = new File("styles/homeStyles.css");
         homeBox.getStylesheets().add(titleStyle.toURI().toString());
@@ -43,7 +49,7 @@ public class HomeView {
         // Frequently played content
         HBox sectionFreq = new HBox();
         sectionFreq.setAlignment(Pos.CENTER);
-        if (SongDAO.getAllSong().isEmpty()) {
+        if (noSong) {
             sectionFreq.setPrefHeight(200);
             Text textEmpty = new Text("Empty");
             textEmpty.getStyleClass().add("title-18");
@@ -84,9 +90,17 @@ public class HomeView {
         Text labelMost = new Text("MOST PLAYED");
         labelMost.getStyleClass().add("title-18");
 
-        songs = SongDAO.getMostPlayedSongs(4);
         int iter = 1;
-        VBox songListMost = new VBox(20);
+        songListMost = new VBox(20);
+        if (noSong) {
+            songs = new ArrayList<>();
+            Text textEmpty = new Text("Empty");
+            textEmpty.getStyleClass().add("title-18");
+            textEmpty.setTextAlignment(TextAlignment.CENTER);
+            songListMost.getChildren().add(textEmpty);
+        } else {
+            songs = SongDAO.getMostPlayedSongs(4);
+        }
 
         for (Song song: songs) {
             // Create the row
@@ -188,9 +202,18 @@ public class HomeView {
         Text labelRecent = new Text("RECENTLY PLAYED");
         labelRecent.getStyleClass().add("title-18");
 
-        songs = SongDAO.recentlyPlayed(4);
         iter = 1;
-        VBox songListRecent = new VBox(20);
+        songListRecent = new VBox(20);
+
+        if (noSong) {
+            songs = new ArrayList<>();
+            Text textEmpty = new Text("Empty");
+            textEmpty.getStyleClass().add("title-18");
+            textEmpty.setTextAlignment(TextAlignment.CENTER);
+            songListRecent.getChildren().add(textEmpty);
+        } else {
+            songs = SongDAO.recentlyPlayed(4);
+        }
 
         for (Song song: songs) {
             // Create the row
@@ -298,11 +321,30 @@ public class HomeView {
     }
 
     static void handleContextMenu(Song song, Node target) {
+        MenuItem deleteSongMenuItem = new MenuItem("Delete Song");
+        deleteSongMenuItem.setId("deleteMenuItem"); // Set an id for the MenuItem
+
+        deleteSongMenuItem.setOnAction(e -> {
+            boolean confirmDelete = DeleteConfirmationPopup.show(song.getTitle());
+            if (confirmDelete) {
+                HomeController.deleteSong(song);
+            }
+        });
+
+        ContextMenu songOptions = new ContextMenu(deleteSongMenuItem);
+        songOptions.setId("songOptions"); // Set an id for the ContextMenu
+        songOptions.show(target, Side.TOP, -20, 5);
+    }
+
+    
+    /* static void handleContextMenu(Song song, Node target) {
         deleteSong.setOnAction(e -> {
             HomeController.deleteSong(song);
+
             songOptions.hide();
         });
         songOptions.show(target, Side.TOP, -20, 5);
     }
+     */
 
 }
