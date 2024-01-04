@@ -1,5 +1,7 @@
 package main;
 
+import dao.PlaylistDAO;
+import dao.SongDAO;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -15,6 +17,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import object.Playlist;
 import javafx.scene.Scene;
+import object.Song;
 
 import java.io.File;
 
@@ -22,11 +25,21 @@ public class AddPlaylistView {
 
     private static VBox addPlaylist;
 
+    static String imagePath;
+
     public static void display(BorderPane root) {
         showCreatePlaylistPopup(root);
     }
 
     private static void showCreatePlaylistPopup(BorderPane root) {
+        for(Playlist playlist :PlaylistDAO.getAllPlaylist()){
+            System.out.println(playlist.getName());
+        }
+
+        for(Song song: SongDAO.getAllSong()){
+            System.out.println(song.getTitle());
+        }
+
         Stage popupStage = new Stage();
         popupStage.initModality(Modality.APPLICATION_MODAL);
 
@@ -105,7 +118,7 @@ public class AddPlaylistView {
         Button confirmButton = new Button("Confirm");
         confirmButton.getStyleClass().add("button");
         confirmButton.setOnAction(e -> {
-            handleCreatePlaylist(playlistNameField.getText(), playlistDescriptionField.getText());
+            handleCreatePlaylist(playlistNameField.getText(), playlistDescriptionField.getText(),imagePath);
             popupStage.close();
         });
 
@@ -120,13 +133,13 @@ public class AddPlaylistView {
         if (file != null) {
             Image image = new Image(file.toURI().toString());
             imageView.setImage(image);
+
+            imagePath = file.toURI().toString();
+            System.out.println("File location: " + imagePath);
         }
     }
 
-    private static void handleCreatePlaylist(String name, String description) {
-        Playlist playlist = new Playlist();
-        playlist.setName(name);
-        playlist.setDesc(description);
-        System.out.println("Playlist created: " + playlist.getName() + " - " + playlist.getDesc());
+    private static void handleCreatePlaylist(String name, String description, String imagePath) {
+        AddPlaylistController.createPlaylist(name,description,imagePath);
     }
 }

@@ -11,9 +11,13 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class DeleteConfirmationPopup {
 
     public static boolean show(String songTitle) {
+        AtomicBoolean confirmDelete = new AtomicBoolean(false);
+
         Stage stage = new Stage();
         stage.setTitle("");
 
@@ -41,6 +45,7 @@ public class DeleteConfirmationPopup {
         Button okButton = new Button("Delete");
         okButton.setOnAction(e -> {
             System.out.println("Deleted: " + songTitle);
+            confirmDelete.set(true);
             stage.close();
         });
         okButton.setStyle("-fx-background-color: #FF2222; -fx-text-fill: #FFFFFF; -fx-font-family: 'Lexend';");
@@ -64,6 +69,6 @@ public class DeleteConfirmationPopup {
 
         stage.showAndWait();
 
-        return false;
+        return confirmDelete.get();
     }
 }
