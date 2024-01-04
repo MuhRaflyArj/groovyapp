@@ -1,0 +1,52 @@
+.popup-root {
+    -fx-background-color: #1B1A1A;
+    -fx-padding: 20px;
+}
+
+.title {
+    -fx-font-family: "Lexend";
+    -fx-font-size: 32px;
+    -fx-font-style: normal;
+    -fx-font-weight: 700;
+    -fx-line-height: normal;
+    -fx-fill: #FFFFFF;
+}
+
+.text-field,
+.text-area {
+    -fx-background-color: #474747;
+    -fx-text-fill: #FFFFFF;
+}
+
+.text-fields-container {
+    -fx-spacing: 10px;
+    -fx-padding-top: 40px;
+    -fx-alignment: center;
+}
+
+.text-field-description {
+    -fx-background-color: #474747 ;
+    -fx-text-fill: #FFFFFF;
+    -fx-pref-height: 238;
+    -fx-alignment: TOP-LEFT;
+    -fx-padding: 5;
+}
+
+.button {
+    -fx-background-color: #474747;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-padding: 8px 16px;
+}
+
+.image-container {
+     -fx-border-color: grey;
+     -fx-border-width: 2px;
+     -fx-border-radius: 5px;
+}
+
+.add-photo-button {
+    -fx-margin-top: 10px; /* Adjust the margin to position the button below the image */
+    -fx-background-color: transparent;
+}
