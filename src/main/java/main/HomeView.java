@@ -53,6 +53,7 @@ public class HomeView {
             sectionFreq.setPrefHeight(200);
             Text textEmpty = new Text("Empty");
             textEmpty.getStyleClass().add("title-18");
+            textEmpty.setTextAlignment(TextAlignment.CENTER);
             sectionFreq.getChildren().add(textEmpty);
         } else {
             songs = HomeController.recommendation(Math.min(SongDAO.getAllSong().size(), 6));
