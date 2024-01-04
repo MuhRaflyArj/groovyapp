@@ -80,20 +80,22 @@
     }
 }
 
-#songOptions {
+.delete-option {
     -fx-width: 170;
     -fx-background-color: #474747;
 }
 
-#deleteMenuItem {
+.context-menu {
     -fx-background-color:#474747;
      -fx-fill: #FF2222;
 }
 
-#deleteMenuItem .label {
+.text-delete {
     -fx-font-family: "Lexend";
     -fx-font-size: 12px;
     -fx-font-weight: 500;
+    -fx-fill : #FF2222;
 }
+
 
 

@@ -20,10 +20,15 @@ import java.io.File;
 
 public class PlaylistView {
     private static MenuItem deleteSong;
+    private static MenuItem deletePlaylist;
+    private static MenuItem deleteSongPlaylist;
     private static ContextMenu songOptions = new ContextMenu();
+    private static ContextMenu playlistOptions;
     public static void display(BorderPane root, Playlist playlist) {
+        playlistOptions = new ContextMenu();
+        songOptions = new ContextMenu();
         VBox allSong = new VBox(30);
-        HBox appBar = AppBars.Return();
+        HBox appBar = AppBars.Return(root);
 
         HBox playlistInfo = new HBox(25);
 
@@ -44,8 +49,32 @@ public class PlaylistView {
         Button more = Buttons.ButtonWithIcon("tabler-icon-dots-vertical-inactive.png", 32, 32);
         buttons.getChildren().addAll(addSong, more);
 
+        Text textDeletePlaylist = new Text("Delete Playlist");
+        textDeletePlaylist.getStyleClass().add("text-delete-playlist");
+        deletePlaylist = new MenuItem("", textDeletePlaylist);
+        deletePlaylist.getStyleClass().add("context-menu");
+
+        Text textDeleteSong = new Text("Delete Song");
+        textDeleteSong.getStyleClass().add("text-delete-playlist");
+        deleteSongPlaylist = new MenuItem("", textDeleteSong);
+        deleteSongPlaylist.getStyleClass().add("context-menu");
+
+        playlistOptions.getItems().addAll(deleteSongPlaylist, deletePlaylist);
+
+        addSong.setOnAction(e -> AddSongPopup.display(playlist, root));
+
         int iter = 1;
         VBox songList = new VBox(20);
+
+        // Song Options Context Menu
+        Text textDelete = new Text("Delete");
+        textDelete.getStyleClass().add("text-delete");
+        deleteSong = new MenuItem("", textDelete);
+        deleteSong.getStyleClass().add("delete-option");
+        songOptions.getStyleClass().add("context-menu");
+        songOptions.getItems().add(deleteSong);
+
+        more.setOnAction(e -> handlePlaylistContextMenu(playlist, more, root));
 
         for (String songID: playlist.getSongList()) {
             Song song = SongDAO.getSongById(songID);
@@ -85,10 +114,10 @@ public class PlaylistView {
             Button songOption = Buttons.ButtonWithIcon("tabler-icon-dots.png", 16,16);
             songRow.getChildren().addAll(sideLeft, songOption);
             songOption.setOnAction(e -> {
-                handleContextMenu(song, songOption);
+                handleContextMenu(playlist, song, songOption, root);
             });
             songRow.onContextMenuRequestedProperty().set(e -> {
-                handleContextMenu(song, songOption);
+                handleContextMenu(playlist, song, songOption, root);
             });
             // Add row to the main VBox
             songList.getChildren().add(songRow);
@@ -109,11 +138,17 @@ public class PlaylistView {
         PlaylistController.playSong(song, playlist);
     }
 
-    private static void handleContextMenu(Song song, Node target) {
+    private static void handleContextMenu(Playlist playlist, Song song, Node target, BorderPane root) {
         deleteSong.setOnAction(e -> {
-            PlaylistController.deleteSong(song);
+            PlaylistController.deleteSong(playlist, song, root);
             songOptions.hide();
         });
         songOptions.show(target, Side.TOP, -20, 5);
+    }
+
+    private static void handlePlaylistContextMenu(Playlist playlist, Node target, BorderPane root) {
+        deleteSongPlaylist.setOnAction(e -> DeleteSongPopup.display(playlist, root));
+        deletePlaylist.setOnAction(e -> PlaylistController.deletePlaylist(playlist, root));
+        playlistOptions.show(target, Side.BOTTOM, -20, 5);
     }
 }

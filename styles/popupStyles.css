@@ -5,6 +5,41 @@
     -fx-background-radius: 25px;
 }
 
+.pop-up-song {
+    -fx-background-color: #2E2E2E;
+    -fx-pref-width: 800;
+    -fx-pref-height: 350;
+    -fx-background-radius: 25px;
+    -fx-padding: 25 0 25 0;
+}
+
+.song-title {
+    -fx-font-family: "Lexend";
+    -fx-font-size: 16px;
+    -fx-font-style: normal;
+    -fx-font-weight: 500;
+    -fx-line-height: normal;
+    -fx-fill: #FFFFFF;
+}
+
+.song-artist {
+    -fx-font-family: "Lexend";
+    -fx-font-size: 10px;
+    -fx-font-style: normal;
+    -fx-font-weight: 300;
+    -fx-line-height: normal;
+    -fx-fill: #FFFFFF;
+}
+
+.song-box {
+    -fx-background-color: #1B1A1A;
+}
+
+.scroll-element {
+    -fx-background-color: transparent;
+}
+
+
 .title {
     -fx-font-family: "Lexend";
     -fx-font-size: 48px;
@@ -30,4 +65,13 @@
     -fx-font-weight: 600;
     -fx-line-height: normal;
     -fx-fill: #FF2222;
+}
+
+.add-song {
+    -fx-font-family: "Lexend";
+    -fx-font-size: 24px;
+    -fx-font-style: normal;
+    -fx-font-weight: 600;
+    -fx-line-height: normal;
+    -fx-fill: #FFFFFF;
 }

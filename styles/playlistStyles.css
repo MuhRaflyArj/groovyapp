@@ -46,3 +46,29 @@
     -fx-line-height: normal;
     -fx-fill: #FFFFFF;
 }
+
+.delete-option {
+    -fx-width: 170;
+    -fx-background-color: #474747;
+}
+
+.context-menu {
+    -fx-background-color:#474747;
+    -fx-fill: #FF2222;
+    -fx-padding: 10 5 10 5;
+}
+
+.text-delete {
+    -fx-font-family: "Lexend";
+    -fx-font-size: 12px;
+     -fx-fill: #FF2222;
+    -fx-font-weight: 500;
+}
+
+.text-delete-playlist {
+    -fx-font-family: "Lexend";
+    -fx-font-size: 16px;
+    -fx-fill: #FF2222;
+    -fx-font-weight: 800;
+
+}

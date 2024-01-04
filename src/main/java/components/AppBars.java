@@ -2,8 +2,11 @@ package components;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import main.HomeController;
+import main.HomeView;
 
 import java.io.File;
 
@@ -71,12 +74,13 @@ public class AppBars {
         return appBar;
     }
 
-    public static HBox Return() {
+    public static HBox Return(BorderPane root) {
         HBox appBarComponent = new HBox(25);
         HBox appBar = new HBox(0);
 
         Button back = Buttons.ButtonWithIcon("tabler-icon-chevron-left-inactive.png", 32, 32);
         appBarComponent.getChildren().addAll(back);
+        back.setOnAction(r -> HomeController.display(root));
 
         appBar.getChildren().addAll(appBarComponent);
         File appBarStyles = new File("styles/appbarStyles.css");
