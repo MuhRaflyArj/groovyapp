@@ -18,11 +18,47 @@ public class MusicPlayerController {
     private static boolean isMuted = false;
     private static Media media;
     private static MediaPlayer mediaPlayer;
+    private static double curVolume;
     public static Song currentSong;
     public static Playlist currentPlaylist;
     public static void display(BorderPane root, Song playedSong) {
         MusicPlayerView.setRoot(root);
         MusicPlayerView.display(playedSong);
+
+        // initialize mediaPlayer
+        Playlist allSong = new Playlist();
+        List<String> songIdList = new ArrayList<>();
+        SongDAO.getAllSong()
+                .forEach(song ->
+                        songIdList.add(song.getSongID())
+                );
+        allSong.setSongList(songIdList);
+        allSong.setDesc("");
+        allSong.setName("");
+
+        MusicPlayerController.currentPlaylist = allSong;
+        MusicPlayerController.currentSong = playedSong;
+
+
+        String audioFilePath = currentSong.getFilePath();
+
+        String osName = System.getProperty("os.name").toLowerCase();
+
+        if (osName.contains("mac")) {
+            MusicPlayerController.media = new Media("file://" + audioFilePath.replace(" ", "%20"));
+        } else if (osName.contains("win")) {
+            audioFilePath = audioFilePath.replace("\\", "/");
+            MusicPlayerController.media = new Media("file:///" + audioFilePath.replace(" ", "%20"));
+        }
+
+        MusicPlayerController.mediaPlayer = new MediaPlayer(media);
+        MusicPlayerController.mediaPlayer.setOnEndOfMedia(MusicPlayerController::next);
+        MusicPlayerView.setVolumeSlider(mediaPlayer.getVolume());
+
+        MusicPlayerController.mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+            MusicPlayerView.setSongSeeker(newValue.toSeconds());
+        });
+
 //        MusicPlayerController.play(PlaylistDAO.getPlaylistById("P004"), SongDAO.getSongById("S010"));
     }
 
@@ -86,7 +122,9 @@ public class MusicPlayerController {
         MusicPlayerController.mediaPlayer = new MediaPlayer(media);
         MusicPlayerController.mediaPlayer.setOnEndOfMedia(MusicPlayerController::next);
         MusicPlayerController.mediaPlayer.play();
-        MusicPlayerView.setVolumeSlider(mediaPlayer.getVolume());
+        MusicPlayerController.mediaPlayer.setVolume(curVolume);
+        MusicPlayerController.mediaPlayer.setMute(isMuted);
+//        MusicPlayerView.setVolumeSlider(mediaPlayer.getVolume());
         MusicPlayerView.display(currentSong);
         MusicPlayerView.togglePlayIcon(true);
 
@@ -155,6 +193,7 @@ public class MusicPlayerController {
 
     public static void setVolume(double level) {
         mediaPlayer.setVolume(level);
+        MusicPlayerController.curVolume = level;
     }
 
 
