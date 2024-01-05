@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import components.*;
+import object.Song;
 
 import java.io.File;
 
@@ -27,7 +28,11 @@ public class Main extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception{
         HomeController.display(root);
-        MusicPlayerController.display(root, SongDAO.recentlyPlayed(1).get(0));
+        if (SongDAO.recentlyPlayed(1).isEmpty()) {
+            MusicPlayerController.display(root, Song.emptySong());
+        } else {
+            MusicPlayerController.display(root, SongDAO.recentlyPlayed(1).get(0));
+        }
         SideBarController.display(root, PlaylistDAO.getAllPlaylist());
 
         BorderPane centerPane = new BorderPane();

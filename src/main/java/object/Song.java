@@ -130,4 +130,18 @@ public class Song {
         System.out.println("Count Played : " + countPlayed);
         System.out.println();
     }
+
+    public static Song emptySong() {
+        Song song = new Song();
+        song.setSongID("");
+        song.setTitle("No Song");
+        song.setTitle("");
+        song.setAlbumName("");
+        song.setYear(1970);
+        song.setLength(0);
+        song.setTrackNo(0);
+        song.setFilePath("/");
+        song.setImagePath("/");
+        return song;
+    }
 }

@@ -44,22 +44,26 @@ public class MusicPlayerController {
 
         String osName = System.getProperty("os.name").toLowerCase();
 
-        if (osName.contains("mac")) {
-            MusicPlayerController.media = new Media("file://" + audioFilePath.replace(" ", "%20"));
-        } else if (osName.contains("win")) {
-            audioFilePath = audioFilePath.replace("\\", "/");
-            MusicPlayerController.media = new Media("file:///" + audioFilePath.replace(" ", "%20"));
+        try {
+            if (osName.contains("mac")) {
+                MusicPlayerController.media = new Media("file://" + audioFilePath.replace(" ", "%20"));
+            } else if (osName.contains("win")) {
+                audioFilePath = audioFilePath.replace("\\", "/");
+                MusicPlayerController.media = new Media("file:///" + audioFilePath.replace(" ", "%20"));
+            }
+
+            MusicPlayerController.mediaPlayer = new MediaPlayer(media);
+            MusicPlayerController.mediaPlayer.setOnEndOfMedia(MusicPlayerController::next);
+            MusicPlayerView.setVolumeSlider(mediaPlayer.getVolume());
+
+            MusicPlayerController.mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+                MusicPlayerView.setSongSeeker(newValue.toSeconds());
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("No Song Found!");
         }
-
-        MusicPlayerController.mediaPlayer = new MediaPlayer(media);
-        MusicPlayerController.mediaPlayer.setOnEndOfMedia(MusicPlayerController::next);
-        MusicPlayerView.setVolumeSlider(mediaPlayer.getVolume());
-
-        MusicPlayerController.mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-            MusicPlayerView.setSongSeeker(newValue.toSeconds());
-        });
-
-//        MusicPlayerController.play(PlaylistDAO.getPlaylistById("P004"), SongDAO.getSongById("S010"));
     }
 
     public static void setIsShuffled(boolean shuffleStatus) {
