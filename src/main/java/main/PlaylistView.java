@@ -17,6 +17,7 @@ import object.Playlist;
 import object.Song;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class PlaylistView {
     private static MenuItem deleteSong;
@@ -81,7 +82,14 @@ public class PlaylistView {
 
         more.setOnAction(e -> handlePlaylistContextMenu(playlist, more, root));
 
-        for (String songID: playlist.getSongList()) {
+        ArrayList<String> playSongList;
+        if (playlist.getSongList() == null) {
+            playSongList = new ArrayList<>();
+        } else {
+            playSongList = (ArrayList<String>) playlist.getSongList();
+        }
+
+        for (String songID: playSongList) {
             Song song = SongDAO.getSongById(songID);
             if (song != null) {
                 // Create the row
