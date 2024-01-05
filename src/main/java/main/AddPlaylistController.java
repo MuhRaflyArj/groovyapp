@@ -6,6 +6,7 @@ import javafx.scene.layout.BorderPane;
 import object.Playlist;
 import object.Song;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddPlaylistController {
@@ -35,5 +36,6 @@ public class AddPlaylistController {
 
         playlist.display();
         PlaylistDAO.createPlaylist(playlist);
+        SideBarController.updateView((ArrayList<Playlist>) PlaylistDAO.getAllPlaylist());
     }
 }
