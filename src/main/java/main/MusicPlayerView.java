@@ -92,9 +92,10 @@ public class MusicPlayerView {
         songSeeker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (!songSeeker.isValueChanging() && Math.abs(newValue.doubleValue() - oldValue.doubleValue()) > 3) {
                 MusicPlayerController.seekSong(newValue);
-            } else if (songSeeker.getValue() > songSeeker.getMax()-1) {
-                MusicPlayerController.next();
             }
+//            } else if (songSeeker.getValue() > songSeeker.getMax()-1) {
+//                MusicPlayerController.next();
+//            }
         });
 
         HBox seek = new HBox(10);

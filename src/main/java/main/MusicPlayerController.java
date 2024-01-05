@@ -84,6 +84,7 @@ public class MusicPlayerController {
             MusicPlayerController.mediaPlayer.stop();
         }
         MusicPlayerController.mediaPlayer = new MediaPlayer(media);
+        MusicPlayerController.mediaPlayer.setOnEndOfMedia(MusicPlayerController::next);
         MusicPlayerController.mediaPlayer.play();
         MusicPlayerView.setVolumeSlider(mediaPlayer.getVolume());
         MusicPlayerView.display(currentSong);
