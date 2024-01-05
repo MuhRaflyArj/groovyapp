@@ -20,7 +20,7 @@ public class AddPlaylistController {
 
         playlist.setName(name);
         playlist.setDesc(description);
-        playlist.setCoverPath(imagePath);
+        playlist.setCoverPath(imagePath.replaceFirst("^file:/", ""));
 
         if (PlaylistDAO.getAllPlaylist().isEmpty()){
             playlist.setPlaylistID("P001");
