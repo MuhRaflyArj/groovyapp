@@ -33,7 +33,7 @@ public class AddPlaylistView {
 
     private static void showCreatePlaylistPopup(BorderPane root) {
         for(Playlist playlist :PlaylistDAO.getAllPlaylist()){
-            System.out.println(playlist.getName());
+            playlist.display();
         }
 
         for(Song song: SongDAO.getAllSong()){

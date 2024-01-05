@@ -58,18 +58,18 @@ public class AddFileView {
 
         HBox browseFile = new HBox(30);
         TextField filePath = TextFields.Small("");
-        Button sbBrowse = Buttons.Browse("Browse");
-        browseFile.getChildren().addAll(filePath, sbBrowse);
+        Button BtBrowse = Buttons.Browse("Browse");
+        browseFile.getChildren().addAll(filePath, BtBrowse);
 
-        Button sbImport = Buttons.Small("Import");
+        Button BtImport = Buttons.Small("Import");
 
         droppedSong.setMouseTransparent(true);
         dragTextContainer.setMouseTransparent(true);
         dragAndDropContainer.setMouseTransparent(false);
 
-        addFileComponent.getChildren().addAll(textTitle, dragAndDropContainer, textImport, browseFile, sbImport);
-        buttonList.add(sbBrowse);
-        buttonList.add(sbImport);
+        addFileComponent.getChildren().addAll(textTitle, dragAndDropContainer, textImport, browseFile, BtImport);
+        buttonList.add(BtBrowse);
+        buttonList.add(BtImport);
 
         VBox.setMargin(addFileComponent, new Insets(25, 25, 0, 25));
         File addFileStyles = new File ("styles/addfileStyles.css");
@@ -104,15 +104,15 @@ public class AddFileView {
             event.consume();
         });
 
-        sbBrowse.setOnAction(e -> handleSbBrowse(filePath));
-        sbImport.setOnAction(e -> handleSbImport(filePath, droppedSong, dragTextContainer));
+        BtBrowse.setOnAction(e -> handleBtBrowse(filePath));
+        BtImport.setOnAction(e -> handleBtImport(filePath, droppedSong, dragTextContainer));
     }
 
-    private static void handleSbBrowse(TextField filePath) {
+    private static void handleBtBrowse(TextField filePath) {
         AddFileController.browseFile(filePath);
     }
 
-    private static void handleSbImport(TextField filePath, VBox droppedSong, VBox dragTextContainer) {
+    private static void handleBtImport(TextField filePath, VBox droppedSong, VBox dragTextContainer) {
         String importStatus = "";
         if (!droppedFiles.isEmpty() && !filePath.getText().isEmpty()) {
             AddFileController.importDragAndDrop(droppedFiles);
