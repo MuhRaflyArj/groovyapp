@@ -10,7 +10,7 @@ import java.io.File;
 public class Images {
 
     public static StackPane ExtraLarge(String imageName) {
-        File image = new File("images/"+imageName);
+        File image = new File(imageName);
         Image imageSource = new Image(image.toURI().toString());
 
         ImageView imageView = new ImageView(imageSource);
@@ -26,7 +26,7 @@ public class Images {
     }
 
     public static StackPane Large(String imageName) {
-        File image = new File("images/"+imageName);
+        File image = new File(imageName);
         Image imageSource = new Image(image.toURI().toString());
 
         ImageView imageView = new ImageView(imageSource);
@@ -44,7 +44,7 @@ public class Images {
     }
 
     public static StackPane Medium(String imageName) {
-        File image = new File("images/"+imageName);
+        File image = new File(imageName);
         Image imageSource = new Image(image.toURI().toString());
 
         ImageView imageView = new ImageView(imageSource);
@@ -71,7 +71,7 @@ public class Images {
     }
 
     public static StackPane Small(String imageName) {
-        File image = new File("images/"+imageName);
+        File image = new File(imageName);
         Image imageSource = new Image(image.toURI().toString());
 
         ImageView imageView = new ImageView(imageSource);
@@ -99,7 +99,7 @@ public class Images {
     }
 
     public static StackPane ExtraSmall(String imageName) {
-        File image = new File("images/"+imageName);
+        File image = new File(imageName);
         Image imageSource = new Image(image.toURI().toString());
 
         ImageView imageView = new ImageView(imageSource);
