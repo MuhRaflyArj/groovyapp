@@ -33,6 +33,9 @@ public class PlaylistController {
             String songId = entry.getValue();
 
             if(checkBox.isSelected()) {
+                if (songList == null) {
+                    songList = new ArrayList<>();
+                }
                 songList.add(songId);
             }
         }
