@@ -108,7 +108,7 @@ public class PlaylistView {
 
                 StackPane songThumb;
                 if (song.getImagePath().equals("")) {
-                    songThumb = Images.ExtraSmall("empty-song-small.png");
+                    songThumb = Images.ExtraSmall("images/empty-song-small.png");
                 } else {
                     songThumb = Images.ExtraSmall(song.getImagePath());
                 }

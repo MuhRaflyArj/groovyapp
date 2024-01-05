@@ -49,7 +49,7 @@ public class MusicPlayerView {
         StackPane musicImage;
         System.out.println(playedSong.getImagePath());
         if (playedSong.getImagePath().equals("")) {
-            musicImage = Images.Small("empty-song-large.png");
+            musicImage = Images.Small("images/empty-song-large.png");
         } else {
             musicImage = Images.Small(playedSong.getImagePath());
         }

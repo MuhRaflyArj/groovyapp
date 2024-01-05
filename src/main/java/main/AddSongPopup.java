@@ -66,7 +66,7 @@ public class AddSongPopup {
 
             StackPane songImage;
             if (song.getImagePath().equals("")) {
-                songImage = Images.ExtraSmall("empty-song-small.png");
+                songImage = Images.ExtraSmall("images/empty-song-small.png");
             } else {
                 songImage = Images.ExtraSmall(song.getImagePath());
             }
