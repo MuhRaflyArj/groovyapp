@@ -4,6 +4,7 @@ import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import object.Playlist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SideBarController {
@@ -32,5 +33,8 @@ public class SideBarController {
     public static void display(BorderPane root, List<Playlist> playlists) {
         SideBarController.root = root;
         SideBarView.display(SideBarController.root, playlists);
+    }
+    public static void updateView(ArrayList<Playlist> newPlaylists) {
+        SideBarView.updateDisplay(newPlaylists);
     }
 }

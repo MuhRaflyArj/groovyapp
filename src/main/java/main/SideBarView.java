@@ -20,11 +20,13 @@ public class SideBarView {
     private static Button sbAddPlaylist = Buttons.ButtonWithIconText("tabler-icon-playlist-add-inactive.png", 32, 32, "CREATE PLAYLIST", 216);
     private static Button sbAllSong = Buttons.ButtonWithIconText("tabler-icon-music-inactive.png", 32, 32, "ALL SONG", 216);
     private static ArrayList<Button> buttonList = new ArrayList<>();
+    private static ArrayList<Button> currentPlaylist = new ArrayList<>();
+    private static VBox sideBarComponent; // this is update able
     public static void display(BorderPane root, List<Playlist> playlists) {
         SideBarView.root = root;
         VBox sideBar = new VBox();
         sideBar.getStyleClass().add("side-bar");
-        VBox sideBarComponent = new VBox(5);
+        sideBarComponent = new VBox(5);
 
         Text textMenu = new Text("MENU");
         textMenu.getStyleClass().add("title");
@@ -43,6 +45,7 @@ public class SideBarView {
             sbPlaylist.setOnAction(e -> handleSbPlaylist(sbPlaylist, playlist));
             sideBarComponent.getChildren().add(sbPlaylist);
             buttonList.add(sbPlaylist);
+            currentPlaylist.add(sbPlaylist);
         }
 
         VBox.setMargin(sideBarComponent, new Insets(25, 25, 0, 25));
@@ -60,6 +63,20 @@ public class SideBarView {
         sbAllSong.setOnAction(e -> handleSbAllSong());
 
         SideBarView.root.setLeft(sideBar);
+    }
+
+    public static void updateDisplay(List<Playlist> playlists) {
+        currentPlaylist.forEach((bt) -> {
+            buttonList.remove(bt);
+            sideBarComponent.getChildren().remove(bt);
+        });
+        for(Playlist playlist : playlists) {
+            Button sbPlaylist = Buttons.ButtonWithIconText("tabler-icon-playlist-inactive.png", 32, 32, playlist.getName(), 216);
+            sbPlaylist.setOnAction(e -> handleSbPlaylist(sbPlaylist, playlist));
+            sideBarComponent.getChildren().add(sbPlaylist);
+            buttonList.add(sbPlaylist);
+            currentPlaylist.add(sbPlaylist);
+        }
     }
 
     private static void handleSbHome() {
