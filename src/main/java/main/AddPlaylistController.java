@@ -9,6 +9,7 @@ import object.Song;
 import java.util.ArrayList;
 import java.util.List;
 
+// Class Add Playlist Controller
 public class AddPlaylistController {
 
     public static void display(BorderPane root) {

@@ -5,6 +5,7 @@ import components.Buttons;
 import components.Images;
 import components.SearchBars;
 import dao.SongDAO;
+
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
@@ -32,6 +33,8 @@ public class HomeView {
     private static boolean noSong = SongDAO.getAllSong().isEmpty();
     private static VBox songListRecent;
     private static VBox songListMost;
+
+    // display function
     public static void display(BorderPane root) {
         noSong = SongDAO.getAllSong().isEmpty();
         VBox homeBox = new VBox(30);
@@ -217,6 +220,7 @@ public class HomeView {
         }
 
         for (Song song: songs) {
+
             // Create the row
             HBox songRow = new HBox();
             songRow.setAlignment(Pos.CENTER_LEFT);
@@ -302,8 +306,8 @@ public class HomeView {
         homeBox.getChildren().add(sectionFreq);
         homeBox.getChildren().add(sectionMost);
         homeBox.getChildren().add(sectionRecent);
-
         homeBox.getStyleClass().add("center-pane");
+
         ScrollPane home = new ScrollPane(homeBox);
         home.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         home.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -324,6 +328,7 @@ public class HomeView {
     static void handleContextMenu(Song song, Node target) {
         MenuItem deleteSongMenuItem = new MenuItem("Delete Song");
         deleteSongMenuItem.setId("deleteMenuItem"); // Set an id for the MenuItem
+
 
         deleteSongMenuItem.setOnAction(e -> {
             boolean confirmDelete = DeleteConfirmationPopup.show(song.getTitle());

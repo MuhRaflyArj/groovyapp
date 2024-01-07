@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddSongPopup {
+    
     public static void display(Playlist playlist, BorderPane root) {
         Popup popup = new Popup();
         VBox popupComponent = new VBox(15);
